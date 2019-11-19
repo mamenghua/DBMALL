@@ -1,0 +1,86 @@
+header{
+	background: rgb(248,248,248);
+	height: 32px;
+	width: 100%;
+}
+.head-content{
+	width: 1200px;
+	margin: 0 auto;
+	height: 32px;
+	font-size: 12px;
+	line-height: 32px;
+}
+.head-content a{
+	color: #4a4a4a;
+}
+.head-content a:hover{
+	color: orangered;
+}
+.head-content ul{
+	display: inline-block;
+	float: right;
+}
+.head-content ul>li{
+	float: left;
+	margin: 0 6px;
+}
+.logo{
+	width: 100%;
+	height: 103px;
+	padding: 10px 0 6px 0;
+}
+.logo-content{
+	width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+}
+.logo-content img{
+	width: 149px;
+	height: 57xpx;
+	margin-right: 30px;
+	display: inline-block;
+	float: left;
+}
+.logo-content .search{
+	width: 488px;
+	height: 40px;
+	margin: 15px auto 0;
+	float: left;
+}
+.logo-content .ant-input,.logo-content .search-btn{
+	height: 40px;
+	border-radius: 0;
+	float: right;
+}
+.logo-content .search-btn{
+	display: inline-block;
+	width: 88px;
+	background: #C00009;
+	outline: none;
+	color: white;
+	line-height: 40px;
+	text-align: center;
+	font-size: 18px;
+	position: relative;
+}
+.logo-content input{
+	height: 40px;
+	width: 400px;
+	box-sizing: border-box;
+	border:2px solid #C00009;
+	padding: 0 10px 0;
+}
+.logo-content a{
+	display: inline-block;
+	float: right;
+	width: 149px;
+	height: 44px;
+	line-height: 44px;
+	text-align: right;
+}
+.logo-content .mymall{
+	background-image: url(../images/mymall-bg.png);
+}
+.logo-content .mycart{
+	background-image: url(../images/mycart-bg.png);
+}
