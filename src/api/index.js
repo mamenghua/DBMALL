@@ -6,3 +6,9 @@ export const GET = (url,params)=>{
         return data;
     })
 }
+
+export const POST = (url,params)=>{
+    return axios.post(`${baseURL}${url}`,params).then((data)=>{
+        return data;
+    })
+}
