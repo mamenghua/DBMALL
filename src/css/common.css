@@ -1,0 +1,8 @@
+
+.ant-anchor-wrapper .ant-anchor{
+	width:200px;
+	position:fixed;
+	left:50px;
+	top:150px;
+	display:none;
+}
