@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import '../css/common.css'
+import '../css/reset.css'
 export default class Register extends Component{
 constructor(props){
 	super(props)

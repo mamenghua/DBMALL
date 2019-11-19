@@ -1,15 +1,23 @@
 import React,{Component} from 'react';
 import {BrowserRouter as Router,Route,NavLink} from 'react-router-dom';
 import {Menu, Dropdown,Icon } from 'antd';
-
+import { Carousel } from 'antd';
 import home from '../css/Home.module.css'
-import '../css/common.css'
-
+import '../css/reset.css'
+import * as api from "../api/products.js";
 export default class Home extends Component{
 constructor(props){
 	super(props)
+	this.state={
+		productslist:[]
+	}
 }
-
+componentDidMount(){
+	api.getProducts({per:5}).then((data)=>{
+		console.log(data.data.products)
+		this.setState({productslist:data.data.products})
+	})
+}
 render(){
 	const menu1=(
 		<Menu>
@@ -21,6 +29,7 @@ render(){
 	    </Menu.Item>
 	  </Menu>
 	)
+	
 return(
 	<div>
 	<header>
@@ -45,12 +54,12 @@ return(
 				<li>/</li>
 				<li>
 					<Dropdown overlay={menu1}>
-					<NavLink to="">客户服务<Icon type="down"/></NavLink>
+					<NavLink to="">客户服务<Icon type="caret-down" /></NavLink>
 				  </Dropdown>
 				</li>	
 				<li>/</li>
 				<li>
-					<NavLink to="">关注我们<Icon type="down"/></NavLink>
+					<NavLink to="">关注我们<Icon type="caret-down" /></NavLink>
 					
 				</li>	
 			</ul>
@@ -72,10 +81,73 @@ return(
 				
 			</div>
 		</div>
-		<div className="menu">
-			<div className="menu_content">
-				
+		<div className={home.menu}>
+			<div className={home.menu_content}>
+				<ul>
+					<li>
+						<NavLink to="">全部地标展馆<Icon type="caret-down" /></NavLink>
+					</li>
+					<li>
+						<NavLink to="">地标珍品</NavLink>
+					</li>
+					<li>
+						<NavLink to="">粮油副食</NavLink>
+					</li>
+					<li>
+						<NavLink to="">酒水茶饮</NavLink>
+					</li>
+					<li>
+						<NavLink to="">山珍海味</NavLink>
+					</li>
+					<li>
+						<NavLink to="">生鲜果蔬</NavLink>
+					</li>
+					<li>
+						<NavLink to="">休闲零食</NavLink>
+					</li>
+				</ul>
 			</div>
+		</div>
+		<div className={home.banner}>
+		<Carousel autoplay effect="fade">
+			<div>
+			  <img src='../imgs/banner1.jpg'/>
+			</div>
+			<div>
+			  <img src='../imgs/banner2.jpg'/>
+			</div>
+			<div>
+			<img src='../imgs/banner3.jpg'/>
+			</div>
+			<div>
+			<img src='../imgs/banner4.jpg'/>
+			</div>
+			<div>
+			<img src='../imgs/banner5.jpg'/>
+			</div>
+			<div>
+			<img src='../imgs/banner6.jpg'/>
+			</div>
+		  </Carousel>
+		</div>
+		
+		<div className={home.jingxuan}>
+		<div className={home.jingxuan_content}>
+			<div className={home.timg}>
+			<img src='../imgs/logo_03.png'/>
+			</div>
+			<div className={home.pditem}>
+			{
+				this.state.productslist.map((item,i)=>{
+					return(
+						<div key={i}>
+							<NavLink to="detail"><img src={item.coverImg} className={home.jxitem}/></NavLink>
+						</div>
+					)
+				})
+			}
+			</div>
+		</div>
 		</div>
 	</header>
 	</div>
