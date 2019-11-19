@@ -12,6 +12,7 @@ export default class Home extends Component{
 
 constructor(props){
 	super(props)
+	this.onScroll = this.handleScroll.bind(this)
 	this.state={
 		productslist:[],
 		youdianlist:[],
@@ -73,11 +74,10 @@ componentDidMount(){
 	})
 	API.usermsg(localStorage.getItem("token")).then((data)=>{
 		this.setState({user:data.data.userName})
-		console.log(this.state.user)
 	}).catch((data)=>{
 		this.setState({user:' 您暂未登录 '})
 	})
-	window.addEventListener('scroll', this.handleScroll.bind(this))
+	window.addEventListener('scroll', this.onScroll)
 	
 	if(localStorage.getItem('token')){
 		document.getElementsByClassName('user')[0].style.display = 'none';
@@ -97,7 +97,7 @@ handleScroll = e => {
 }
 componentWillUnmount() {
 	//移除监听器，以防多个组件之间导致this的指向紊乱
-    window.removeEventListener('scroll', this.handleScroll.bind(this)) 
+    window.removeEventListener('scroll', this.onScroll) 
 }
 render(){
 	const menu1=(

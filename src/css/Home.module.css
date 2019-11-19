@@ -17,6 +17,9 @@ header{
 .head_content a:hover{
 	color: orangered;
 }
+.head_content>div{
+	float: left;
+}
 .head_content ul{
 	display: inline-block;
 	float: right;
