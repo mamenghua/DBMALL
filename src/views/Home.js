@@ -1,7 +1,8 @@
 import React,{Component} from 'react';
 import {BrowserRouter as Router,Route,NavLink} from 'react-router-dom';
 import {Menu, Dropdown,Icon } from 'antd';
-import '../css/Home.css'
+
+import home from '../css/Home.module.css'
 import '../css/common.css'
 
 export default class Home extends Component{
@@ -23,7 +24,7 @@ render(){
 return(
 	<div>
 	<header>
-		<div className="head-content">
+		<div className={home.head_content}>
 			<span>您好, 欢迎来到</span>
 			<NavLink to="/"> 地标商城 </NavLink>
 			<NavLink to="/login">[登录]</NavLink>
@@ -54,20 +55,26 @@ return(
 				</li>	
 			</ul>
 		</div>
-		<div className="logo">
-			<div className="logo-content">
+		<div className={home.logo}>
+			<div className={home.logo_content}>
 				<img src='../imgs/logo_01.png'/>
 				<img src='../imgs/logo_02.png'/>
-				<div className="search">
+				<div className={home.search}>
 					<input placeholder="搜索商品"/>
-					<a className="search-btn">搜索</a>
+					<a className={home.search_btn}>搜索</a>
 				</div>
-				<NavLink className="mymall" to="">
-				我的商城
-				</NavLink>
-				<NavLink className="mycart" to="">
+				<NavLink className={home.mycart} to="">
 				我的购物车
 				</NavLink>
+				<NavLink className={home.mymall} to="">
+				我的商城
+				</NavLink>
+				
+			</div>
+		</div>
+		<div className="menu">
+			<div className="menu_content">
+				
 			</div>
 		</div>
 	</header>
