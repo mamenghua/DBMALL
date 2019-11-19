@@ -2,22 +2,71 @@ import React,{Component} from 'react';
 import {BrowserRouter as Router,Route,NavLink} from 'react-router-dom';
 import {Menu, Dropdown,Icon } from 'antd';
 import { Carousel } from 'antd';
+import { Anchor } from 'antd';
 import home from '../css/Home.module.css'
 import '../css/reset.css'
+import '../css/common.css'
 import * as api from "../api/products.js";
+
 export default class Home extends Component{
+
 constructor(props){
 	super(props)
 	this.state={
-		productslist:[]
+		productslist:[],
+		youdianlist:[],
+		flowerlist:[],
+		dresslist:[],
+		shipinlist:[],
+		shoelist:[],
+		mobilelist:[],
+		booklist:[],
+		targetOffset: undefined,
 	}
 }
 componentDidMount(){
+	this.setState({
+      targetOffset: window.innerHeight / 2,
+    });
 	api.getProducts({per:5}).then((data)=>{
-		console.log(data.data.products)
 		this.setState({productslist:data.data.products})
 	})
+	api.getProducts({per:8,name:"优典"}).then((data)=>{
+		this.setState({youdianlist:data.data.products})
+	})
+	api.getProducts({per:8,name:"开业花篮"}).then((data)=>{
+		this.setState({flowerlist:data.data.products})
+	})
+	api.getProducts({per:8,name:"服装"}).then((data)=>{
+		this.setState({dresslist:data.data.products})
+	})
+	api.getProducts({per:8,name:"饰品"}).then((data)=>{
+		this.setState({shipinlist:data.data.products})
+	})
+	api.getProducts({per:8,name:"运动鞋"}).then((data)=>{
+		this.setState({shoelist:data.data.products})
+	})
+	api.getProducts({per:8,name:"手机"}).then((data)=>{
+		this.setState({mobilelist:data.data.products})
+	})
+	api.getProducts({per:8,name:"新九州"}).then((data)=>{
+		this.setState({booklist:data.data.products})
+	})
+	window.addEventListener('scroll', this.handleScroll.bind(this))
+	
 }
+componentWillUnmount() {
+	//移除监听器，以防多个组件之间导致this的指向紊乱
+    window.removeEventListener('scroll', this.handleScroll.bind(this)) 
+}
+handleScroll = e => {
+	if(e.srcElement.scrollingElement.scrollTop>600){
+		document.getElementsByClassName("ant-anchor")[0].style.display='block'
+	}else{
+		document.getElementsByClassName("ant-anchor")[0].style.display='none'
+	}
+}
+
 render(){
 	const menu1=(
 		<Menu>
@@ -29,13 +78,13 @@ render(){
 	    </Menu.Item>
 	  </Menu>
 	)
-	
+	const { Link } = Anchor;
 return(
 	<div>
 	<header>
-		<div className={home.head_content}>
+		<div className={home.head_content} id="回到顶部">
 			<span>您好, 欢迎来到</span>
-			<NavLink to="/"> 地标商城 </NavLink>
+			<NavLink to="/home"> 地标商城 </NavLink>
 			<NavLink to="/login">[登录]</NavLink>
 			<NavLink to="/register">[注册]</NavLink>
 			<ul>
@@ -108,6 +157,7 @@ return(
 				</ul>
 			</div>
 		</div>
+	</header>
 		<div className={home.banner}>
 		<Carousel autoplay effect="fade">
 			<div>
@@ -140,8 +190,12 @@ return(
 			{
 				this.state.productslist.map((item,i)=>{
 					return(
-						<div key={i}>
-							<NavLink to="detail"><img src={item.coverImg} className={home.jxitem}/></NavLink>
+						<div key={i} className={home.jxit}>
+							<NavLink to="/detail">
+							<img src={item.coverImg} className={home.jxitem}/>
+							<p>{item.name}</p>
+							<p className={home.hot}>活动价:{item.price}¥</p>
+							</NavLink>
 						</div>
 					)
 				})
@@ -149,7 +203,197 @@ return(
 			</div>
 		</div>
 		</div>
-	</header>
+		
+		<div className={home.products}>
+		<div className={home.products_content}>
+				<img src='../imgs/before.png' className={home.before}/>
+				<h2 id="优典新品">优典新品</h2>
+				<div>
+					<div className={home.youdianitem}>
+						{
+							this.state.youdianlist.map((item,i)=>{
+								return(
+									<div key={i} className={home.yditem}>
+										<NavLink to="/detail">
+										<img src={item.coverImg} className={home.ydimg}/>
+										<p>{item.name}</p>
+										<p>{item.descriptions}<span className={home.hot}>尝鲜价:{item.price}¥</span></p>
+										
+										</NavLink>
+									</div>
+								)
+							})
+						}
+					</div>
+				</div>
+			
+			
+			
+			<img src='../imgs/before.png' className={home.before}/>
+			<h2 id="开业花篮">开业花篮</h2>
+			<div>
+			<div className={home.floweritem}>
+				{
+					this.state.flowerlist.map((item,i)=>{
+						return(
+							<div key={i} className={home.fitem}>
+								<NavLink to="/detail">
+								<img src={item.coverImg} className={home.fimg}/>
+								<p>{item.name}</p>
+								<p>{item.descriptions}<span className={home.hot}>尝鲜价:{item.price}¥</span></p>
+								
+								</NavLink>
+							</div>
+						)
+					})
+				}
+			</div>
+			</div>
+			
+			<img src='../imgs/before.png' className={home.before}/>
+			<h2 id="精品服饰">精品服饰</h2>
+			<div>
+			<div className={home.floweritem}>
+				{
+					this.state.dresslist.map((item,i)=>{
+						return(
+							<div key={i} className={home.fitem}>
+								<NavLink to="/detail">
+								<img src={item.coverImg} className={home.fimg}/>
+								<p>{item.descriptions}</p>
+								<span className={home.hot}>抢购价:{item.price}¥</span>
+								</NavLink>
+							</div>
+						)
+					})
+				}
+			</div>
+			</div>
+			
+			<img src='../imgs/before.png' className={home.before}/>
+			<h2 id="正品专柜">正品专柜</h2>
+			<div>
+			<div className={home.floweritem}>
+				{
+					this.state.shipinlist.map((item,i)=>{
+						return(
+							<div key={i} className={home.fitem}>
+								<NavLink to="/detail">
+								<img src={item.coverImg} className={home.fimg}/>
+								<p>{item.name}</p>
+								<p>{item.descriptions}<span className={home.hot}>抢购价:{item.price}¥</span></p>
+								</NavLink>
+							</div>
+						)
+					})
+				}
+			</div>
+			</div>
+			
+			<img src='../imgs/before.png' className={home.before}/>
+			<h2 id="运动鞋">运动鞋</h2>
+			<div>
+			<div className={home.floweritem}>
+				{
+					this.state.shoelist.map((item,i)=>{
+						return(
+							<div key={i} className={home.fitem}>
+								<NavLink to="/detail">
+								<img src={item.coverImg} className={home.fimg}/>
+								<p>{item.name}</p>
+								<p>{item.descriptions}<span className={home.hot}>抢购价:{item.price}¥</span></p>
+								</NavLink>
+							</div>
+						)
+					})
+				}
+			</div>
+			</div>
+			
+			<img src='../imgs/before.png' className={home.before}/>
+			<h2 id="正品手机">正品手机</h2>
+			<div>
+			<div className={home.floweritem}>
+				{
+					this.state.mobilelist.map((item,i)=>{
+						return(
+							<div key={i} className={home.fitem}>
+								<NavLink to="/detail">
+								<img src={item.coverImg} className={home.fimg}/>
+								<p>{item.name}<span className={home.hot}>抢购价:{item.price}¥</span></p>
+								</NavLink>
+							</div>
+						)
+					})
+				}
+			</div>
+			</div>
+			
+			<img src='../imgs/before.png' className={home.before}/>
+			<h2 id="休闲小说">休闲小说</h2>
+			<div>
+			<div className={home.floweritem}>
+				{
+					this.state.booklist.map((item,i)=>{
+						return(
+							<div key={i} className={home.bitem}>
+								<NavLink to="/detail">
+								<img src={item.coverImg} className={home.bimg}/>
+								<p>{item.descriptions}</p>
+								<span className={home.hot}>抢购价:{item.price}¥</span>
+								</NavLink>
+							</div>
+						)
+					})
+				}
+			</div>
+			</div>
+			
+		</div>
+		</div>
+		
+		<footer>
+			<div className={home.foot}>
+				<div className={home.foot_top}>
+					<img src='../imgs/foot_top.png'/>
+				</div>
+				<div className={home.foot_nav}>
+					<NavLink to="">首页</NavLink> /
+					<NavLink to="">网站地图</NavLink> /
+					<NavLink to="">招聘英才</NavLink> /
+					<NavLink to="">联系我们</NavLink> /
+					<NavLink to="">关于我们</NavLink>
+				</div>
+				<div className={home.foot_img}>
+					<NavLink to=""><img src='../imgs/public_infomation.png'/></NavLink>
+					<NavLink to=""><img src='../imgs/online_110.png'/></NavLink>
+					<NavLink to=""><img src='../imgs/alipay_logo.png'/></NavLink>
+					<NavLink to=""><img src='../imgs/wxpay_logo.png'/></NavLink>
+					<NavLink to=""><img src='../imgs/dbmall_118.jpg'/></NavLink>
+					<NavLink to=""><img src='../imgs/gswj.png'/></NavLink>
+				</div>
+				<p>Copyright&copy;2019 dbmall.com, All Rights Reserved粤ICP备15109472号深公网安备4403300900603</p>
+				<p>食品流通许可证SP4403052015027332使用本网站即表示接受地标商城用户协议。版权所有深圳华夏地标电子商务有限公司</p>
+			</div>
+		</footer>
+		<Anchor id="anchor"  targetOffset={this.state.targetOffset}>
+			<Link href="#回到顶部" title="回到顶部" />
+			<Link href="#优典新品" title="优典新品" />
+			<Link href="#开业花篮" title="开业花篮" />
+			<Link href="#精品服饰" title="精品服饰" />
+			<Link href="#正品专柜" title="正品专柜" />
+			<Link href="#运动鞋" title="运动鞋" />
+			<Link href="#正品手机" title="正品手机" />
+			<Link href="#休闲小说" title="休闲小说" />
+		</Anchor>
+		
+		<div className={home.fixed}>
+		<div className={home.phone}>
+		</div>
+		<div className={home.wx}>
+		</div>
+		</div>
+	
 	</div>
 )
 }
