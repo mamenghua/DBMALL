@@ -3,7 +3,7 @@ import {BrowserRouter as Router,Route,NavLink} from 'react-router-dom';
 import {Menu, Dropdown,Icon } from 'antd';
 
 import home from '../css/Home.module.css'
-import '../css/common.css'
+import '../css/reset.css'
 
 export default class Home extends Component{
 constructor(props){

@@ -1,0 +1,14 @@
+import axios from 'axios';
+let baseURL = 'http://api.cat-shop.penkuoer.com';
+
+export const GET = (url,params)=>{
+    return axios.get(`${baseURL}${url}`,{params:params}).then((data)=>{
+        return data;
+    })
+}
+
+export const POST = (url,params)=>{
+    return axios.post(`${baseURL}${url}`,params).then((data)=>{
+        return data;
+    })
+}
