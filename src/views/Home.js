@@ -1,13 +1,13 @@
 import React,{Component} from 'react';
-import {BrowserRouter as Router,Route,NavLink} from 'react-router-dom';
+import {NavLink} from 'react-router-dom';
 import {Menu, Dropdown,Icon } from 'antd';
 import { Carousel } from 'antd';
 import { Anchor } from 'antd';
 import home from '../css/Home.module.css'
+import * as api from "../api/products.js";
+import * as API from "../api/user.js";
 import '../css/reset.css'
 import '../css/common.css'
-import * as api from "../api/products.js";
-
 export default class Home extends Component{
 
 constructor(props){
@@ -22,8 +22,27 @@ constructor(props){
 		mobilelist:[],
 		booklist:[],
 		targetOffset: undefined,
+		token:localStorage.getItem("token"),
+		user:[]
 	}
 }
+
+// renderUserMsg(){
+// 	if(this.state.user!=='您暂未登录'){
+// 		<div>
+// 		<span>您好, 
+// 			<span>{this.state.user}</span>
+// 		欢迎来到</span>
+// 		<NavLink to="/home"> 地标商城 </NavLink>
+// 		<NavLink to="/login">[登录]</NavLink>
+// 		<NavLink to="/register">[注册]</NavLink>
+// 		</div>
+// 
+// 	}else{
+// 		<NavLink to="/register">[注册]</NavLink>
+// 	}
+// }
+
 componentDidMount(){
 	this.setState({
       targetOffset: window.innerHeight / 2,
@@ -52,13 +71,23 @@ componentDidMount(){
 	api.getProducts({per:8,name:"新九州"}).then((data)=>{
 		this.setState({booklist:data.data.products})
 	})
+	API.usermsg(localStorage.getItem("token")).then((data)=>{
+		this.setState({user:data.data.userName})
+		console.log(this.state.user)
+	}).catch((data)=>{
+		this.setState({user:' 您暂未登录 '})
+	})
 	window.addEventListener('scroll', this.handleScroll.bind(this))
 	
+	if(localStorage.getItem('token')){
+		document.getElementsByClassName('user')[0].style.display = 'none';
+		document.getElementsByClassName('user')[1].style.display = 'block';
+	}else{
+		document.getElementsByClassName('user')[0].style.display = 'block';
+		document.getElementsByClassName('user')[1].style.display = 'none';
+	}
 }
-componentWillUnmount() {
-	//移除监听器，以防多个组件之间导致this的指向紊乱
-    window.removeEventListener('scroll', this.handleScroll.bind(this)) 
-}
+
 handleScroll = e => {
 	if(e.srcElement.scrollingElement.scrollTop>600){
 		document.getElementsByClassName("ant-anchor")[0].style.display='block'
@@ -66,7 +95,10 @@ handleScroll = e => {
 		document.getElementsByClassName("ant-anchor")[0].style.display='none'
 	}
 }
-
+componentWillUnmount() {
+	//移除监听器，以防多个组件之间导致this的指向紊乱
+    window.removeEventListener('scroll', this.handleScroll.bind(this)) 
+}
 render(){
 	const menu1=(
 		<Menu>
@@ -83,10 +115,27 @@ return(
 	<div>
 	<header>
 		<div className={home.head_content} id="回到顶部">
-			<span>您好, 欢迎来到</span>
-			<NavLink to="/home"> 地标商城 </NavLink>
-			<NavLink to="/login">[登录]</NavLink>
-			<NavLink to="/register">[注册]</NavLink>
+			{	
+				<div>
+				<div className="user">
+					<span>您好, 
+						<span>{this.state.user}</span>
+					欢迎来到</span>
+					<NavLink to="/home"> 地标商城 </NavLink>
+					<NavLink to="/login">[登录]</NavLink>
+					<NavLink to="/register">[注册]</NavLink>
+				</div>
+				<div className="user">
+					<span>您好, 
+						<span>{this.state.user}</span>
+					欢迎来到</span>
+					<NavLink to="/home"> 地标商城 </NavLink>
+					<NavLink to="/home" onClick={()=>{localStorage.removeItem('token');window.location.reload()}}>[注销]</NavLink>
+				</div>
+				</div>
+			}
+			
+
 			<ul>
 				<li>
 					<Icon type="mobile" />
@@ -115,8 +164,8 @@ return(
 		</div>
 		<div className={home.logo}>
 			<div className={home.logo_content}>
-				<img src='../imgs/logo_01.png'/>
-				<img src='../imgs/logo_02.png'/>
+				<img src='../imgs/logo_01.png' alt=''/>
+				<img src='../imgs/logo_02.png' alt=''/>
 				<div className={home.search}>
 					<input placeholder="搜索商品"/>
 					<a className={home.search_btn}>搜索</a>
@@ -161,22 +210,22 @@ return(
 		<div className={home.banner}>
 		<Carousel autoplay effect="fade">
 			<div>
-			  <img src='../imgs/banner1.jpg'/>
+			  <img src='../imgs/banner1.jpg' alt=''/>
 			</div>
 			<div>
-			  <img src='../imgs/banner2.jpg'/>
+			  <img src='../imgs/banner2.jpg' alt=''/>
 			</div>
 			<div>
-			<img src='../imgs/banner3.jpg'/>
+			<img src='../imgs/banner3.jpg' alt=''/>
 			</div>
 			<div>
-			<img src='../imgs/banner4.jpg'/>
+			<img src='../imgs/banner4.jpg' alt=''/>
 			</div>
 			<div>
-			<img src='../imgs/banner5.jpg'/>
+			<img src='../imgs/banner5.jpg' alt=''/>
 			</div>
 			<div>
-			<img src='../imgs/banner6.jpg'/>
+			<img src='../imgs/banner6.jpg' alt=''/>
 			</div>
 		  </Carousel>
 		</div>
@@ -184,7 +233,7 @@ return(
 		<div className={home.jingxuan}>
 		<div className={home.jingxuan_content}>
 			<div className={home.timg}>
-			<img src='../imgs/logo_03.png'/>
+			<img src='../imgs/logo_03.png' alt=''/>
 			</div>
 			<div className={home.pditem}>
 			{
@@ -192,7 +241,7 @@ return(
 					return(
 						<div key={i} className={home.jxit}>
 							<NavLink to="/detail">
-							<img src={item.coverImg} className={home.jxitem}/>
+							<img src={item.coverImg} className={home.jxitem} alt=''/>
 							<p>{item.name}</p>
 							<p className={home.hot}>活动价:{item.price}¥</p>
 							</NavLink>
@@ -206,7 +255,7 @@ return(
 		
 		<div className={home.products}>
 		<div className={home.products_content}>
-				<img src='../imgs/before.png' className={home.before}/>
+				<img src='../imgs/before.png' className={home.before} alt=''/>
 				<h2 id="优典新品">优典新品</h2>
 				<div>
 					<div className={home.youdianitem}>
@@ -215,7 +264,7 @@ return(
 								return(
 									<div key={i} className={home.yditem}>
 										<NavLink to="/detail">
-										<img src={item.coverImg} className={home.ydimg}/>
+										<img src={item.coverImg} className={home.ydimg} alt=''/>
 										<p>{item.name}</p>
 										<p>{item.descriptions}<span className={home.hot}>尝鲜价:{item.price}¥</span></p>
 										
@@ -229,7 +278,7 @@ return(
 			
 			
 			
-			<img src='../imgs/before.png' className={home.before}/>
+			<img src='../imgs/before.png' className={home.before} alt=''/>
 			<h2 id="开业花篮">开业花篮</h2>
 			<div>
 			<div className={home.floweritem}>
@@ -238,7 +287,7 @@ return(
 						return(
 							<div key={i} className={home.fitem}>
 								<NavLink to="/detail">
-								<img src={item.coverImg} className={home.fimg}/>
+								<img src={item.coverImg} className={home.fimg} alt=''/>
 								<p>{item.name}</p>
 								<p>{item.descriptions}<span className={home.hot}>尝鲜价:{item.price}¥</span></p>
 								
@@ -250,7 +299,7 @@ return(
 			</div>
 			</div>
 			
-			<img src='../imgs/before.png' className={home.before}/>
+			<img src='../imgs/before.png' className={home.before} alt=''/>
 			<h2 id="精品服饰">精品服饰</h2>
 			<div>
 			<div className={home.floweritem}>
@@ -259,7 +308,7 @@ return(
 						return(
 							<div key={i} className={home.fitem}>
 								<NavLink to="/detail">
-								<img src={item.coverImg} className={home.fimg}/>
+								<img src={item.coverImg} className={home.fimg} alt=''/>
 								<p>{item.descriptions}</p>
 								<span className={home.hot}>抢购价:{item.price}¥</span>
 								</NavLink>
@@ -270,7 +319,7 @@ return(
 			</div>
 			</div>
 			
-			<img src='../imgs/before.png' className={home.before}/>
+			<img src='../imgs/before.png' className={home.before} alt=''/>
 			<h2 id="正品专柜">正品专柜</h2>
 			<div>
 			<div className={home.floweritem}>
@@ -279,7 +328,7 @@ return(
 						return(
 							<div key={i} className={home.fitem}>
 								<NavLink to="/detail">
-								<img src={item.coverImg} className={home.fimg}/>
+								<img src={item.coverImg} className={home.fimg} alt=''/>
 								<p>{item.name}</p>
 								<p>{item.descriptions}<span className={home.hot}>抢购价:{item.price}¥</span></p>
 								</NavLink>
@@ -290,7 +339,7 @@ return(
 			</div>
 			</div>
 			
-			<img src='../imgs/before.png' className={home.before}/>
+			<img src='../imgs/before.png' className={home.before} alt=''/>
 			<h2 id="运动鞋">运动鞋</h2>
 			<div>
 			<div className={home.floweritem}>
@@ -299,7 +348,7 @@ return(
 						return(
 							<div key={i} className={home.fitem}>
 								<NavLink to="/detail">
-								<img src={item.coverImg} className={home.fimg}/>
+								<img src={item.coverImg} className={home.fimg} alt=''/>
 								<p>{item.name}</p>
 								<p>{item.descriptions}<span className={home.hot}>抢购价:{item.price}¥</span></p>
 								</NavLink>
@@ -310,7 +359,7 @@ return(
 			</div>
 			</div>
 			
-			<img src='../imgs/before.png' className={home.before}/>
+			<img src='../imgs/before.png' className={home.before} alt=''/>
 			<h2 id="正品手机">正品手机</h2>
 			<div>
 			<div className={home.floweritem}>
@@ -319,7 +368,7 @@ return(
 						return(
 							<div key={i} className={home.fitem}>
 								<NavLink to="/detail">
-								<img src={item.coverImg} className={home.fimg}/>
+								<img src={item.coverImg} className={home.fimg} alt=''/>
 								<p>{item.name}<span className={home.hot}>抢购价:{item.price}¥</span></p>
 								</NavLink>
 							</div>
@@ -329,7 +378,7 @@ return(
 			</div>
 			</div>
 			
-			<img src='../imgs/before.png' className={home.before}/>
+			<img src='../imgs/before.png' className={home.before} alt=''/>
 			<h2 id="休闲小说">休闲小说</h2>
 			<div>
 			<div className={home.floweritem}>
@@ -338,7 +387,7 @@ return(
 						return(
 							<div key={i} className={home.bitem}>
 								<NavLink to="/detail">
-								<img src={item.coverImg} className={home.bimg}/>
+								<img src={item.coverImg} className={home.bimg} alt=''/>
 								<p>{item.descriptions}</p>
 								<span className={home.hot}>抢购价:{item.price}¥</span>
 								</NavLink>
@@ -355,7 +404,7 @@ return(
 		<footer>
 			<div className={home.foot}>
 				<div className={home.foot_top}>
-					<img src='../imgs/foot_top.png'/>
+					<img src='../imgs/foot_top.png' alt=''/>
 				</div>
 				<div className={home.foot_nav}>
 					<NavLink to="">首页</NavLink> /
@@ -365,12 +414,12 @@ return(
 					<NavLink to="">关于我们</NavLink>
 				</div>
 				<div className={home.foot_img}>
-					<NavLink to=""><img src='../imgs/public_infomation.png'/></NavLink>
-					<NavLink to=""><img src='../imgs/online_110.png'/></NavLink>
-					<NavLink to=""><img src='../imgs/alipay_logo.png'/></NavLink>
-					<NavLink to=""><img src='../imgs/wxpay_logo.png'/></NavLink>
-					<NavLink to=""><img src='../imgs/dbmall_118.jpg'/></NavLink>
-					<NavLink to=""><img src='../imgs/gswj.png'/></NavLink>
+					<NavLink to=""><img src='../imgs/public_infomation.png' alt=''/></NavLink>
+					<NavLink to=""><img src='../imgs/online_110.png' alt=''/></NavLink>
+					<NavLink to=""><img src='../imgs/alipay_logo.png' alt=''/></NavLink>
+					<NavLink to=""><img src='../imgs/wxpay_logo.png' alt=''/></NavLink>
+					<NavLink to=""><img src='../imgs/dbmall_118.jpg' alt=''/></NavLink>
+					<NavLink to=""><img src='../imgs/gswj.png' alt=''/></NavLink>
 				</div>
 				<p>Copyright&copy;2019 dbmall.com, All Rights Reserved粤ICP备15109472号深公网安备4403300900603</p>
 				<p>食品流通许可证SP4403052015027332使用本网站即表示接受地标商城用户协议。版权所有深圳华夏地标电子商务有限公司</p>

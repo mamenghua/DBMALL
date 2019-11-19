@@ -6,3 +6,18 @@ export const GET = (url,params)=>{
         return data;
     })
 }
+
+export const POST = (url,params)=>{
+    return axios.post(`${baseURL}${url}`,params).then((data)=>{
+        return data;
+    })
+}
+
+export const TOKENGET = (url,token)=>{
+    return axios({
+		url:`${baseURL}${url}`,
+		headers:{"authorization":"Bearer "+token},
+		}).then((data)=>{
+        return data;
+    })
+}
