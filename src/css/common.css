@@ -92,3 +92,10 @@
 	font-size: 20px;
 	text-align: center;
 }
+#root .avatar-uploader > .ant-upload {
+	width: 128px;
+	height: 128px;
+	margin: 0 auto;
+	float: none;
+  }
+  
