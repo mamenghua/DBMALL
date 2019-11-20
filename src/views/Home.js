@@ -28,22 +28,6 @@ constructor(props){
 	}
 }
 
-// renderUserMsg(){
-// 	if(this.state.user!=='您暂未登录'){
-// 		<div>
-// 		<span>您好, 
-// 			<span>{this.state.user}</span>
-// 		欢迎来到</span>
-// 		<NavLink to="/home"> 地标商城 </NavLink>
-// 		<NavLink to="/login">[登录]</NavLink>
-// 		<NavLink to="/register">[注册]</NavLink>
-// 		</div>
-// 
-// 	}else{
-// 		<NavLink to="/register">[注册]</NavLink>
-// 	}
-// }
-
 componentDidMount(){
 	this.setState({
       targetOffset: window.innerHeight / 2,
@@ -186,22 +170,22 @@ return(
 						<NavLink to="">全部地标展馆<Icon type="caret-down" /></NavLink>
 					</li>
 					<li>
-						<NavLink to="">地标珍品</NavLink>
+						<NavLink to="/book">网络文学</NavLink>
 					</li>
 					<li>
-						<NavLink to="">粮油副食</NavLink>
+						<NavLink to="/phone">手机专卖</NavLink>
 					</li>
 					<li>
-						<NavLink to="">酒水茶饮</NavLink>
+						<NavLink to="/flower">往后余生</NavLink>
 					</li>
 					<li>
-						<NavLink to="">山珍海味</NavLink>
+						<NavLink to="/eat">吃货专区</NavLink>
 					</li>
 					<li>
-						<NavLink to="">生鲜果蔬</NavLink>
+						<NavLink to="/dress">运动服饰</NavLink>
 					</li>
 					<li>
-						<NavLink to="">休闲零食</NavLink>
+						<NavLink to="/jewelry">名表饰品</NavLink>
 					</li>
 				</ul>
 			</div>
@@ -240,7 +224,7 @@ return(
 				this.state.productslist.map((item,i)=>{
 					return(
 						<div key={i} className={home.jxit}>
-							<NavLink to="/detail">
+							<NavLink to={'/detail/'+item._id}>
 							<img src={item.coverImg} className={home.jxitem} alt=''/>
 							<p>{item.name}</p>
 							<p className={home.hot}>活动价:{item.price}¥</p>
@@ -263,7 +247,7 @@ return(
 							this.state.youdianlist.map((item,i)=>{
 								return(
 									<div key={i} className={home.yditem}>
-										<NavLink to="/detail">
+										<NavLink to={'/detail/'+item._id}>
 										<img src={item.coverImg} className={home.ydimg} alt=''/>
 										<p>{item.name}</p>
 										<p>{item.descriptions}<span className={home.hot}>尝鲜价:{item.price}¥</span></p>
@@ -286,7 +270,7 @@ return(
 					this.state.flowerlist.map((item,i)=>{
 						return(
 							<div key={i} className={home.fitem}>
-								<NavLink to="/detail">
+								<NavLink to={'/detail/'+item._id}>
 								<img src={item.coverImg} className={home.fimg} alt=''/>
 								<p>{item.name}</p>
 								<p>{item.descriptions}<span className={home.hot}>尝鲜价:{item.price}¥</span></p>
@@ -307,7 +291,7 @@ return(
 					this.state.dresslist.map((item,i)=>{
 						return(
 							<div key={i} className={home.fitem}>
-								<NavLink to="/detail">
+								<NavLink to={'/detail/'+item._id}>
 								<img src={item.coverImg} className={home.fimg} alt=''/>
 								<p>{item.descriptions}</p>
 								<span className={home.hot}>抢购价:{item.price}¥</span>
@@ -327,7 +311,7 @@ return(
 					this.state.shipinlist.map((item,i)=>{
 						return(
 							<div key={i} className={home.fitem}>
-								<NavLink to="/detail">
+								<NavLink to={'/detail/'+item._id}>
 								<img src={item.coverImg} className={home.fimg} alt=''/>
 								<p>{item.name}</p>
 								<p>{item.descriptions}<span className={home.hot}>抢购价:{item.price}¥</span></p>
@@ -347,7 +331,7 @@ return(
 					this.state.shoelist.map((item,i)=>{
 						return(
 							<div key={i} className={home.fitem}>
-								<NavLink to="/detail">
+								<NavLink to={'/detail/'+item._id}>
 								<img src={item.coverImg} className={home.fimg} alt=''/>
 								<p>{item.name}</p>
 								<p>{item.descriptions}<span className={home.hot}>抢购价:{item.price}¥</span></p>
@@ -367,7 +351,7 @@ return(
 					this.state.mobilelist.map((item,i)=>{
 						return(
 							<div key={i} className={home.fitem}>
-								<NavLink to="/detail">
+								<NavLink to={'/detail/'+item._id}>
 								<img src={item.coverImg} className={home.fimg} alt=''/>
 								<p>{item.name}<span className={home.hot}>抢购价:{item.price}¥</span></p>
 								</NavLink>
@@ -386,7 +370,7 @@ return(
 					this.state.booklist.map((item,i)=>{
 						return(
 							<div key={i} className={home.bitem}>
-								<NavLink to="/detail">
+								<NavLink to={'/detail/'+item._id}>
 								<img src={item.coverImg} className={home.bimg} alt=''/>
 								<p>{item.descriptions}</p>
 								<span className={home.hot}>抢购价:{item.price}¥</span>

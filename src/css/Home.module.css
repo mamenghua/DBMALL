@@ -1,13 +1,13 @@
 
 header{
 	background: rgb(248,248,248);
-	height: 32px;
+	min-height: 32px;
 	width: 100%;
 }
 .head_content{
 	width: 1200px;
 	margin: 0 auto;
-	height: 32px;
+	min-height: 32px;
 	font-size: 12px;
 	line-height: 32px;
 }
@@ -52,6 +52,18 @@ header{
 	height: 40px;
 	margin: 15px auto 0;
 	float: left;
+}
+.logo_content>span{
+	width: 104px;
+	height: 31px;
+	display: inline-block;
+	font-size: 19px;
+	text-align: center;
+	line-height: 31px;
+	float: left;
+	margin-top: 24px;
+	margin-right: 35px;
+	background: url(../images/text-bg.png);
 }
 .logo_content .ant_input,.logo_content .search_btn{
 	height: 40px;
@@ -247,6 +259,19 @@ header{
 	background: white;
 	border:1px solid white;
 	box-sizing:border-box;
+}
+.pitem{
+	text-align:center;
+	width: 300px;
+	height: 320px;
+	float: left;
+	padding: 20px;
+	background: white;
+	border:1px solid white;
+	box-sizing:border-box;
+}
+.pitem:hover{
+	border:1px solid #DCDCDC;
 }
 .bitem:hover{
 	border:1px solid #DCDCDC;
