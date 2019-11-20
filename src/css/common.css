@@ -9,3 +9,10 @@
     width: 1200px;
     margin: 0 auto;
 }
+#root .avatar-uploader > .ant-upload {
+	width: 128px;
+	height: 128px;
+	margin: 0 auto;
+	float: none;
+  }
+  

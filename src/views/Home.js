@@ -4,14 +4,15 @@ import {Menu, Dropdown,Icon } from 'antd';
 import { Carousel } from 'antd';
 import { Anchor } from 'antd';
 import home from '../css/Home.module.css'
+import * as api from "../api/products.js";
+import * as API from "../api/user.js";
 import '../css/reset.css'
 import '../css/common.css'
-import * as api from "../api/products.js";
-
 export default class Home extends Component{
 
 constructor(props){
 	super(props)
+	this.onScroll = this.handleScroll.bind(this)
 	this.state={
 		productslist:[],
 		youdianlist:[],
@@ -22,8 +23,11 @@ constructor(props){
 		mobilelist:[],
 		booklist:[],
 		targetOffset: undefined,
+		token:localStorage.getItem("token"),
+		user:[]
 	}
 }
+
 componentDidMount(){
 	this.setState({
       targetOffset: window.innerHeight / 2,
@@ -52,13 +56,22 @@ componentDidMount(){
 	api.getProducts({per:8,name:"新九州"}).then((data)=>{
 		this.setState({booklist:data.data.products})
 	})
-	window.addEventListener('scroll', this.handleScroll.bind(this))
+	API.usermsg(localStorage.getItem("token")).then((data)=>{
+		this.setState({user:data.data.userName})
+	}).catch((data)=>{
+		this.setState({user:' 您暂未登录 '})
+	})
+	window.addEventListener('scroll', this.onScroll)
 	
+	if(localStorage.getItem('token')){
+		document.getElementsByClassName('user')[0].style.display = 'none';
+		document.getElementsByClassName('user')[1].style.display = 'block';
+	}else{
+		document.getElementsByClassName('user')[0].style.display = 'block';
+		document.getElementsByClassName('user')[1].style.display = 'none';
+	}
 }
-componentWillUnmount() {
-	//移除监听器，以防多个组件之间导致this的指向紊乱
-    window.removeEventListener('scroll', this.handleScroll.bind(this)) 
-}
+
 handleScroll = e => {
 	if(e.srcElement.scrollingElement.scrollTop>600){
 		document.getElementsByClassName("ant-anchor")[0].style.display='block'
@@ -66,7 +79,10 @@ handleScroll = e => {
 		document.getElementsByClassName("ant-anchor")[0].style.display='none'
 	}
 }
-
+componentWillUnmount() {
+	//移除监听器，以防多个组件之间导致this的指向紊乱
+    window.removeEventListener('scroll', this.onScroll) 
+}
 render(){
 	const menu1=(
 		<Menu>
@@ -83,10 +99,27 @@ return(
 	<div>
 	<header>
 		<div className={home.head_content} id="回到顶部">
-			<span>您好, 欢迎来到</span>
-			<NavLink to="/home"> 地标商城 </NavLink>
-			<NavLink to="/login">[登录]</NavLink>
-			<NavLink to="/register">[注册]</NavLink>
+			{	
+				<div>
+				<div className="user">
+					<span>您好, 
+						<span>{this.state.user}</span>
+					欢迎来到</span>
+					<NavLink to="/home"> 地标商城 </NavLink>
+					<NavLink to="/login">[登录]</NavLink>
+					<NavLink to="/register">[注册]</NavLink>
+				</div>
+				<div className="user">
+					<span>您好, 
+						<span>{this.state.user}</span>
+					欢迎来到</span>
+					<NavLink to="/home"> 地标商城 </NavLink>
+					<NavLink to="/home" onClick={()=>{localStorage.removeItem('token');window.location.reload()}}>[注销]</NavLink>
+				</div>
+				</div>
+			}
+			
+
 			<ul>
 				<li>
 					<Icon type="mobile" />
@@ -137,7 +170,7 @@ return(
 						<NavLink to="">全部地标展馆<Icon type="caret-down" /></NavLink>
 					</li>
 					<li>
-						<NavLink to="">地标珍品</NavLink>
+						<NavLink to="/book">网络文学</NavLink>
 					</li>
 					<li>
 						<NavLink to="">粮油副食</NavLink>
