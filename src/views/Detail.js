@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
 import {NavLink} from 'react-router-dom';
-import {Menu, Dropdown,Icon } from 'antd';
+import {Menu, Dropdown,Icon,InputNumber,Modal} from 'antd';
 import * as api from "../api/products.js";
 import * as API from "../api/user.js";
+import * as Api from "../api/cart.js";
 import '../css/reset.css'
 import '../css/common.css'
 import home from '../css/Home.module.css'
@@ -17,7 +18,11 @@ constructor(props){
 		img:'',
 		descriptions:'',
 		price:'',
-		count:'',
+		created:'',
+		count:1,
+		totalprice:0,
+		loading: false,
+		visible: false,
 	}
 }
 componentDidMount(){
@@ -35,12 +40,25 @@ componentDidMount(){
 		document.getElementsByClassName('user')[1].style.display = 'none';
 	}
 	api.getProductMsg(this.props.match.params.id).then((data)=>{
-		console.log(data.data)
-		this.setState({location:data.data.name,img:data.data.coverImg,descriptions:data.data.descriptions,price:data.data.price,count:data.data.quantity})
+		this.setState({location:data.data.name,img:data.data.coverImg,descriptions:data.data.descriptions,price:data.data.price,created:data.data.createdAt,totalprice:data.data.price})
 	})
-	console.log(this.props.match.params.id)
 }
-
+onChange=(value)=>{
+	let totalprice=value*this.state.price
+	totalprice=totalprice.toFixed(1)
+	this.setState({count:value,totalprice:totalprice})
+}
+addCart=()=>{
+	Api.addCart({product:this.props.match.params.id,quantity:this.state.count},localStorage.getItem('token')).then((data)=>{
+		Modal.success({
+			title: '成功加入'+this.state.count+'件进入购物车',
+		  });
+	}).catch((data)=>{
+		Modal.error({
+			title: '加入购物车失败，请重试',
+		  });
+	})
+}
 render(){
 	const menu1=(
 		<Menu>
@@ -165,10 +183,16 @@ return(
 					售价 <span> &nbsp;¥{this.state.price}</span>
 				</span>
 				<span>
-					<p>库存: <span> {this.state.count}</span></p>
+					<p>上架时间: <span> {this.state.created}</span></p>
 					<p>运费: <span> 免运费</span></p>
 				</span>
 			</div>
+			<div className='num'>
+			 数量:  <InputNumber min={1}  defaultValue={1} onChange={this.onChange} />
+			 <span className='totalpricebox'>总价:  <span className='totalprice'>¥{this.state.totalprice}</span></span>
+			</div>
+			<a className='buy'>立即购买</a>
+			<a className='addcart' onClick={this.addCart}>加入购物车</a>
 		</div>
 	</div>
 	</div>

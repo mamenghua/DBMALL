@@ -18,7 +18,7 @@ constructor(props){
 		user:[],
 		total:0,
 		current:1,
-		classify:'时尚花卉'
+		classify:'优典'
 	}
 }
 onChange = page => {

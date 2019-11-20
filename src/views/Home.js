@@ -154,7 +154,7 @@ return(
 					<input placeholder="搜索商品"/>
 					<a className={home.search_btn}>搜索</a>
 				</div>
-				<NavLink className={home.mycart} to="">
+				<NavLink className={home.mycart} to="/cart">
 				我的购物车
 				</NavLink>
 				<NavLink className={home.mymall} to="">

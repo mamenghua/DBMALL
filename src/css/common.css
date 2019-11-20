@@ -83,7 +83,7 @@
 	margin-top: 10px;
 }
 .detail>span:nth-child(2){
-	text-align: right;
+	width: 300px;
 }
 .detail>span>span{
 	font-size: 32px;
@@ -92,6 +92,40 @@
 	font-size: 20px;
 	text-align: center;
 }
+.totalpricebox{
+	margin-left: 80px;
+}
+.totalprice{
+	color: #F71127;
+	font-size: 24px;
+}
+.num{
+	margin-top: 40px;
+	text-align: left;
+}
+.buy,.addcart{
+	width: 164px;
+	height: 47px;
+	text-align: center;
+	line-height: 47px;
+	color: white;
+	font-size: 20px;
+	display: inline-block;
+	float: left;
+	margin-top: 50px;
+	margin-right: 50px;
+}
+.buy{
+	background: url(../images/buy.png);
+}
+.addcart{
+	background: url(../images/addcart.png);
+}
+.buy:hover,.addcart:hover{
+	color: white;
+}
+
+
 #root .avatar-uploader > .ant-upload {
 	width: 128px;
 	height: 128px;

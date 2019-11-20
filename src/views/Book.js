@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import {NavLink} from 'react-router-dom';
-import {Menu, Dropdown,Icon,Carousel,Anchor,Pagination } from 'antd';
+import {Menu, Dropdown,Icon,Carousel,Pagination } from 'antd';
 import * as api from "../api/products.js";
 import * as API from "../api/user.js";
 import '../css/reset.css'
@@ -82,7 +82,6 @@ render(){
 	    </Menu.Item>
 	  </Menu>
 	)
-	const { Link } = Anchor;
 return(
 	<div>
 	<header>

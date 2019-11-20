@@ -210,7 +210,7 @@ return(
 					this.state.booklist.map((item,i)=>{
 						return(
 							<div key={i} className={home.pitem}>
-								<NavLink to="/detail">
+								<NavLink to={'/detail/'+item._id}>
 								<img src={item.coverImg} className={home.bimg} alt=''/>
 								<p>{item.descriptions}</p>
 								<span className={home.hot}>抢购价:{item.price}¥</span>
@@ -225,10 +225,6 @@ return(
 			<Pagination current={this.state.current} onChange={this.onChange} total={this.state.total} hideOnSinglePage={true}/>	
 		</div>
 		</div>
-			
-		
-			
-		
 		<footer>
 			<div className={home.foot}>
 				<div className={home.foot_top}>

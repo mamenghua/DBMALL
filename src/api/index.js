@@ -21,3 +21,14 @@ export const TOKENGET = (url,token)=>{
         return data;
     })
 }
+
+export const TOKENPOST = (url,params,token)=>{
+    return axios({
+		method:'post',
+		url:`${baseURL}${url}`,
+		params:params,
+		headers:{"authorization":"Bearer "+token},
+		}).then((data)=>{
+        return data;
+    })
+}
