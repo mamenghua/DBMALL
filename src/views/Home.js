@@ -161,7 +161,7 @@ return(
 				<NavLink className={home.mycart} to="/cart">
 				我的购物车
 				</NavLink>
-				<NavLink className={home.mymall} to="">
+				<NavLink className={home.mymall} to="/mymall">
 				我的商城
 				</NavLink>
 				

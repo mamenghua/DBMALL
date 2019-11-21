@@ -1,0 +1,70 @@
+.mymall,.mycart{
+	display: inline-block;
+	float: right;
+	width: 149px;
+	height: 44px;
+	line-height: 44px;
+	text-indent: 60px;
+	color: #4A4A4A;
+	margin-top: 16px;
+}
+.mymall{
+	background-image: url(../images/mymall-bg.png);
+	margin-right: 20px;
+}
+.mycart{
+	background-image: url(../images/mycart-bg.png);
+}
+
+.sidebarbox{
+	width: 210px;
+	background: white;
+	border: 1px solid #e7e7e7;
+	display: inline-block;
+	margin:20px 0 20px;
+}
+.sidebarbox .sidebartop{
+	width: 210px;
+	height: 40px;
+	background: #ec4f4a;
+	padding-left: 20px;
+}
+.sidebarbox .sidebartop p{
+	font-size: 14px;
+	font-weight: 600;
+	color: white;
+	line-height: 40px;
+}
+.sidebarbox ul{
+	list-style: none outside none;
+}
+.sidebarbox>ul>li{
+	width: 100%;
+	margin: 0;
+	border-bottom: 1px dotted #e7e7e7;
+	padding-bottom: 15px;
+}
+.sidebarbox>ul>li>span{
+	margin: 12px;
+	cursor: pointer;
+	display: block;
+	font-size: 14px;
+	font-weight: 600;
+	color: #333;
+	line-height: 20px;
+	padding-left: 7px;
+}
+.sidebarbox>ul>li>span>i{
+	float: right;
+}
+.sidebarbox>ul>li>ul>li{
+	width: 208px;
+	height: 32px;
+	color: #777;
+	padding: 6px 0 6px 25px;
+	font-size: 12px;
+	cursor: pointer;
+}
+.sidebarbox>ul>li>ul>li:hover{
+	background: rgb(250,250,250);
+}

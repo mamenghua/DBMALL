@@ -13,6 +13,7 @@ import Search from './views/Search'
 import LoginSuccess from './views/LoginSuccess'
 import Register from './views/Register'
 import Cart from './views/Cart'
+import Mymall from './views/Mymall'
 import Footer from './views/Footer'
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
 			<Route path="/loginsuccess" component={LoginSuccess}></Route>
 			<Route path="/register" component={Register}></Route>
 			<Route path="/cart" component={Cart}></Route>
+			<Route path="/mymall" component={Mymall}></Route>
 			<Redirect from='/*' to="/home"/>
 			</Switch>
 		</div>
