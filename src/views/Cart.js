@@ -35,9 +35,8 @@ export default class Cart extends Component {
         let newValue = parseInt(value);
         let oldValue = parseInt(oldvalue);
         let diff = newValue - oldValue;
-        console.log(diff, id);
         api.addCart({ product: id, quantity: diff }, localStorage.getItem('token')).then((data) => {
-            console.log(data.data);
+            // console.log(data.data);
         }).catch((err) => {
             message.error('购物车更改失败！' + err);
         })
@@ -65,9 +64,7 @@ export default class Cart extends Component {
                 obj.delid = item._id;
                 list.push(obj);
             });
-            console.log(this.state.selectedRowKeys)
             this.setState({ list: list });
-            console.log(data.data)
             let totalprice = 0;
             this.state.selectedRowKeys.map((item, i) => {
                 totalprice += list[item].totalprice;
