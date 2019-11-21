@@ -15,13 +15,16 @@
 .mycart{
 	background-image: url(../images/mycart-bg.png);
 }
-
+.mymall:hover,.mycart:hover{
+	color: #333333;
+}
 .sidebarbox{
 	width: 210px;
 	background: white;
 	border: 1px solid #e7e7e7;
 	display: inline-block;
 	margin:20px 0 20px;
+	float: left;
 }
 .sidebarbox .sidebartop{
 	width: 210px;

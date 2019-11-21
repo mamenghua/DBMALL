@@ -8,6 +8,7 @@
 .content{
     width: 1200px;
     margin: 0 auto;
+	overflow: hidden;
 }
 .btnbox{
 	width: 1200px;

@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router,Route,Switch,Redirect} from 'react-router-dom';
 import '../css/reset.css'
 import '../css/common.css'
 import cart from '../css/Cart.module.css'
 import mymall from '../css/Mymall.module.css'
 import home from '../css/Home.module.css'
+import order from '../css/Order.module.css'
+import Order from './Order'
 import { NavLink } from 'react-router-dom';
 import { Button, Icon, Modal } from 'antd';
 import * as api from '../api/cart';
@@ -140,6 +143,13 @@ export default class Mymall extends Component {
 								</li>
                             </ul>
                         </div>
+						
+						<Router>
+							<div>
+							<Route path="/order" component={Order}></Route>
+								<Redirect to="/order"/>
+							</div>
+						</Router>
                     </div>
                 </div>
             </div>
