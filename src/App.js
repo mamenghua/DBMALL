@@ -12,6 +12,8 @@ import Login from './views/Login'
 import Search from './views/Search'
 import LoginSuccess from './views/LoginSuccess'
 import Register from './views/Register'
+import Cart from './views/Cart'
+import Footer from './views/Footer'
 
 function App() {
   return (
@@ -31,11 +33,12 @@ function App() {
 			<Route path="/search" component={Search}></Route>
 			<Route path="/loginsuccess" component={LoginSuccess}></Route>
 			<Route path="/register" component={Register}></Route>
+			<Route path="/cart" component={Cart}></Route>
 			<Redirect from='/*' to="/home"/>
 			</Switch>
-
 		</div>
 	  </Router>
+	  <Footer/>
     </div>
   );
 }
