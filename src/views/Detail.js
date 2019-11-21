@@ -59,6 +59,10 @@ addCart=()=>{
 		  });
 	})
 }
+onClick=()=>{
+	let value=document.getElementsByClassName('ipt')[0].value
+	this.props.history.push('/search',value)
+}
 render(){
 	const menu1=(
 		<Menu>
@@ -126,8 +130,8 @@ return(
 				<img src='../imgs/logo_01.png' alt=''/>
 				<img src='../imgs/logo_02.png' alt=''/>
 				<div className={home.search}>
-					<input placeholder="搜索商品"/>
-					<a className={home.search_btn}>搜索</a>
+					<input placeholder="搜索商品" className='ipt'/>
+					<a className={home.search_btn} onClick={this.onClick}>搜索</a>
 				</div>
 				<NavLink className={home.mycart} to="">
 				我的购物车
