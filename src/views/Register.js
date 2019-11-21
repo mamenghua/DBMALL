@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {NavLink} from 'react-router-dom';
 
 import login from '../css/Login.module.css';
 import '../css/reset.css'
@@ -123,6 +124,7 @@ export default class Register extends Component {
 						<button className={login.login_btn} onClick={() => this.register()}>
 							注册
 						</button>
+						<NavLink to="/login"> 已有账户，直接登录 </NavLink>
 					</div>
 				</div>
 			</div>

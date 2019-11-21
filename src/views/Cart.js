@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import '../css/reset.css'
 import '../css/common.css'
 import cart from '../css/Cart.module.css'
-import home from '../css/Home.module.css'
 import { NavLink } from 'react-router-dom';
-import { Table, Button, InputNumber, Icon, message } from 'antd';
-
+import { Table, Button, InputNumber, Icon, message, Modal } from 'antd';
 import * as api from '../api/cart';
+import * as API from "../api/user.js";
+const { confirm } = Modal;
 
 export default class Cart extends Component {
     constructor(props) {
@@ -31,12 +31,9 @@ export default class Cart extends Component {
         }, 1000);
     };
     numberChange = (value, oldvalue, id) => {
-        // console.log(this)
         // console.log('changed', value,oldvalue,id);
-        // console.log(value,oldvalue)
         let newValue = parseInt(value);
         let oldValue = parseInt(oldvalue);
-
         let diff = newValue - oldValue;
         console.log(diff, id);
         api.addCart({ product: id, quantity: diff }, localStorage.getItem('token')).then((data) => {
@@ -69,7 +66,7 @@ export default class Cart extends Component {
                 list.push(obj);
             });
             console.log(this.state.selectedRowKeys)
-            this.setState({ list: list  });
+            this.setState({ list: list });
             console.log(data.data)
             let totalprice = 0;
             this.state.selectedRowKeys.map((item, i) => {
@@ -79,20 +76,25 @@ export default class Cart extends Component {
         })
 
     }
+    showConfirm = (delid) => {
+        let _this = this;
+        confirm({
+            title: '你确定要删除' + delid + '这件商品吗',
+            onOk() {
+                _this.del(delid);
+            },
+            onCancel() { },
+        });
+    }
     del = (delid) => {
-        console.log(delid);
-        console.log(this.state.list);
-        console.log(this.state.selectedRowKeys)
         let list = this.state.list;
-        list.map((item,i)=>{
-            if(item.delid==delid){
-                list.splice(i,1);
+        list.map((item, i) => {
+            if (item.delid == delid) {
+                list.splice(i, 1);
             }
         })
-        this.setState({list:list,selectedRowKeys:[],totalprice:0})
+        this.setState({ list: list, selectedRowKeys: [], totalprice: 0 })
         api.delCart(delid, localStorage.getItem('token')).then((data) => {
-            //   message.success('删除成功');
-            console.log(data.data)
             if (data.data !== null) {
                 message.success('删除成功')
                 // 获取用户购物车数据
@@ -120,9 +122,7 @@ export default class Cart extends Component {
         this.setState({ totalprice: totalprice, selectedRowKeys })
         // console.log('selectedRowKeys changed: ', selectedRowKeys);
     };
-    // componentWillMount(){
 
-    // }
     componentDidMount() {
         // 用户名
         if (localStorage.getItem('token')) {
@@ -158,16 +158,24 @@ export default class Cart extends Component {
                 list.push(obj);
             });
             this.setState({ list: list });
-            console.log(data.data)
             // 购物车是否有数据
-            if (list.length === 0) {
+            if (this.state.list.length === 0) {
                 document.getElementsByClassName('cartUnEmpty')[0].style.display = 'none';
+                document.getElementsByClassName('cartEmpty')[0].style.display = 'block';
             } else {
                 document.getElementsByClassName('cartEmpty')[0].style.display = 'none';
+                document.getElementsByClassName('cartUnEmpty')[0].style.display = 'block';
             }
+        }).catch((err) => {
+            document.getElementsByClassName('cartUnEmpty')[0].style.display = 'none';
+            document.getElementsByClassName('cartEmpty')[0].style.display = 'block';
         })
-
-
+        // 判断用户信息
+        API.usermsg(localStorage.getItem("token")).then((data)=>{
+            this.setState({user:data.data.userName})
+        }).catch((data)=>{
+            this.setState({user:' 您暂未登录 '})
+        })
 
     }
     render() {
@@ -198,7 +206,6 @@ export default class Cart extends Component {
                 title: '数量',
                 dataIndex: 'number',
                 render: (text, record, index) => {
-                    // console.log(record)
                     return (<div>
                         <InputNumber size="large" min={1} max={100000} defaultValue={text} onChange={(e) => this.numberChange(e, text, record.id)} dataid={record.id} />
                     </div>)
@@ -213,14 +220,14 @@ export default class Cart extends Component {
                 dataIndex: 'delid',
                 render: (text, record, index) => {
                     return (
-                        <Icon type="delete" theme="twoTone" onClick={() => this.del(text)} />
+                        <Icon type="delete" theme="twoTone" onClick={() => this.showConfirm(text)} />
                     )
                 }
             },
         ];
+
         return (
             <div>
-
                 <header>
                     <div className={cart.head_content} id="回到顶部">
                         {
@@ -301,36 +308,12 @@ export default class Cart extends Component {
                                         {hasSelected ? `选中了 ${selectedRowKeys.length} 条商品` : ''}
                                     </span>
                                 </div>
-                                <Table rowSelection={rowSelection} columns={columns} dataSource={this.state.list} />
+                                <Table rowSelection={rowSelection} columns={columns} dataSource={this.state.list} pagination={{ pageSize: 6 }} />
                                 <h2>商品总价（不含运费）<span style={{ color: 'red' }}> {this.state.totalprice} </span> 元</h2>
                             </div>
                         </div>
                     </div>
                 </div>
-                <footer>
-                    <div className={home.foot}>
-                        <div className={home.foot_top}>
-                            <img src='../imgs/foot_top.png' alt='' />
-                        </div>
-                        <div className={home.foot_nav}>
-                            <NavLink to="">首页</NavLink> /
-					<NavLink to="">网站地图</NavLink> /
-					<NavLink to="">招聘英才</NavLink> /
-					<NavLink to="">联系我们</NavLink> /
-					<NavLink to="">关于我们</NavLink>
-                        </div>
-                        <div className={home.foot_img}>
-                            <NavLink to=""><img src='../imgs/public_infomation.png' alt='' /></NavLink>
-                            <NavLink to=""><img src='../imgs/online_110.png' alt='' /></NavLink>
-                            <NavLink to=""><img src='../imgs/alipay_logo.png' alt='' /></NavLink>
-                            <NavLink to=""><img src='../imgs/wxpay_logo.png' alt='' /></NavLink>
-                            <NavLink to=""><img src='../imgs/dbmall_118.jpg' alt='' /></NavLink>
-                            <NavLink to=""><img src='../imgs/gswj.png' alt='' /></NavLink>
-                        </div>
-                        <p>Copyright&copy;2019 dbmall.com, All Rights Reserved粤ICP备15109472号深公网安备4403300900603</p>
-                        <p>食品流通许可证SP4403052015027332使用本网站即表示接受地标商城用户协议。版权所有深圳华夏地标电子商务有限公司</p>
-                    </div>
-                </footer>
             </div>
         )
     }

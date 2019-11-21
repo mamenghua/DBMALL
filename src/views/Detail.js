@@ -201,32 +201,6 @@ return(
 	</div>
 	</div>
 	
-	
-	
-	<footer>
-		<div className={home.foot}>
-			<div className={home.foot_top}>
-				<img src='../imgs/foot_top.png' alt=''/>
-			</div>
-			<div className={home.foot_nav}>
-				<NavLink to="">首页</NavLink> /
-				<NavLink to="">网站地图</NavLink> /
-				<NavLink to="">招聘英才</NavLink> /
-				<NavLink to="">联系我们</NavLink> /
-				<NavLink to="">关于我们</NavLink>
-			</div>
-			<div className={home.foot_img}>
-				<NavLink to=""><img src='../imgs/public_infomation.png' alt=''/></NavLink>
-				<NavLink to=""><img src='../imgs/online_110.png' alt=''/></NavLink>
-				<NavLink to=""><img src='../imgs/alipay_logo.png' alt=''/></NavLink>
-				<NavLink to=""><img src='../imgs/wxpay_logo.png' alt=''/></NavLink>
-				<NavLink to=""><img src='../imgs/dbmall_118.jpg' alt=''/></NavLink>
-				<NavLink to=""><img src='../imgs/gswj.png' alt=''/></NavLink>
-			</div>
-			<p>Copyright&copy;2019 dbmall.com, All Rights Reserved粤ICP备15109472号深公网安备4403300900603</p>
-			<p>食品流通许可证SP4403052015027332使用本网站即表示接受地标商城用户协议。版权所有深圳华夏地标电子商务有限公司</p>
-		</div>
-	</footer>
 	</div>
 )
 }
