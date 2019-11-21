@@ -1,0 +1,98 @@
+header{
+	background: rgb(248,248,248);
+	min-height: 32px;
+	width: 100%;
+}
+.head_content{
+	width: 1200px;
+	margin: 0 auto;
+	min-height: 32px;
+	font-size: 12px;
+	line-height: 32px;
+}
+.head_content a{
+	color: #4a4a4a;
+}
+.head_content a:hover{
+	color: orangered;
+}
+.head_content>div{
+	float: left;
+}
+.head_content ul{
+	display: inline-block;
+	float: right;
+}
+.head_content ul>li{
+	float: left;
+	margin: 0 6px;
+}
+
+.logo{
+    width: 100%;
+	height: 103px;
+	padding: 10px 0 0 0;
+	background: white;
+}
+.logo_content{
+    width: 1200px;
+	height: 100%;
+	margin: 0 auto;
+}
+.logo_content img{
+	width: 149px;
+	height: 57px;
+	margin-right: 30px;
+	display: inline-block;
+	float: left;
+}
+
+.container{
+    background: #f8f8f8;
+}
+.cartEmpty{
+    width: 480px;
+    height: 340px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+.cartImg{
+    position: absolute;
+    z-index: 1;
+    top: 80px;
+    left: 0;
+}
+.cartEmpty h2{
+    position: absolute;
+    z-index: 1;
+    top: 110px;
+    left: 180px;
+}
+.cartEmpty p{
+    position: absolute;
+    z-index: 1;
+    top: 160px;
+    left: 180px;
+}
+.cartEmpty a{
+    border-style: solid;
+    border-width: 1px;
+    border-color: #DCDCDC #DCDCDC #B3B3B3 #DCDCDC;
+    color: #777;
+    background-color: #F5F5F5;
+    text-align: center;
+    vertical-align: middle;
+    display: inline-block;
+    height: 28px;
+    padding: 2px 10px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+/* 购物车不为空 */
+.cartUnEmpty{
+    width: 1000px;
+    margin: 0 auto;
+    border-bottom: 1px solid #f8f8f8;
+}

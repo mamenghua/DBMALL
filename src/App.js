@@ -11,6 +11,7 @@ import Detail from './views/Detail'
 import Login from './views/Login'
 import LoginSuccess from './views/LoginSuccess'
 import Register from './views/Register'
+import Cart from './views/Cart'
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
 			<Route path="/login" component={Login}></Route>
 			<Route path="/loginsuccess" component={LoginSuccess}></Route>
 			<Route path="/register" component={Register}></Route>
+			<Route path="/cart" component={Cart}></Route>
 			<Redirect from='/' to="/home"/>
 			</Switch>
 
