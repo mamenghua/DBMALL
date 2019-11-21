@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import '../css/reset.css'
 import '../css/common.css'
 import cart from '../css/Cart.module.css'
+import mymall from '../css/Mymall.module.css'
 import { NavLink } from 'react-router-dom';
 import { Table, Button, InputNumber, Icon, message, Modal } from 'antd';
 import * as api from '../api/cart';
@@ -270,7 +271,12 @@ export default class Cart extends Component {
                         <div className={cart.logo_content}>
                             <img src='../imgs/logo_01.png' alt='' />
                             <img src='../imgs/logo_02.png' alt='' />
-
+							<NavLink className={mymall.mycart} to="/cart">
+							我的购物车
+							</NavLink>
+							<NavLink className={mymall.mymall} to="/mymall">
+							我的商城
+							</NavLink>
                         </div>
                     </div>
 

@@ -9,6 +9,7 @@ header{
 	min-height: 32px;
 	font-size: 12px;
 	line-height: 32px;
+	overflow: hidden;
 }
 .head_content a{
 	color: #4a4a4a;

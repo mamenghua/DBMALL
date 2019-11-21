@@ -15,6 +15,7 @@ import Register from './views/Register'
 import Cart from './views/Cart'
 import Mymall from './views/Mymall'
 import Footer from './views/Footer'
+import Order from './views/Order'
 
 function App() {
   return (
@@ -35,7 +36,9 @@ function App() {
 			<Route path="/loginsuccess" component={LoginSuccess}></Route>
 			<Route path="/register" component={Register}></Route>
 			<Route path="/cart" component={Cart}></Route>
-			<Route path="/mymall" component={Mymall}></Route>
+			<Route path="/mymall" component={Mymall}>
+				
+			</Route>
 			<Redirect from='/*' to="/home"/>
 			</Switch>
 		</div>

@@ -1,0 +1,7 @@
+.section{
+	width: calc(98% - 210px);
+	background: white;
+	min-height: 200px;
+	margin: 20px 0 20px;
+	float: right;
+}
