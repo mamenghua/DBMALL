@@ -9,6 +9,7 @@ import Dress from './views/Dress'
 import Jewelry from './views/Jewelry'
 import Detail from './views/Detail'
 import Login from './views/Login'
+import Search from './views/Search'
 import LoginSuccess from './views/LoginSuccess'
 import Register from './views/Register'
 
@@ -26,10 +27,12 @@ function App() {
 			<Route path="/eat" component={Eat}></Route>
 			<Route path="/jewelry" component={Jewelry}></Route>
 			<Route path="/detail/:id" component={Detail}></Route>
+			<Route path="/detail" component={Detail}></Route>
 			<Route path="/login" component={Login}></Route>
+			<Route path="/search" component={Search}></Route>
 			<Route path="/loginsuccess" component={LoginSuccess}></Route>
 			<Route path="/register" component={Register}></Route>
-			<Redirect from='/' to="/home"/>
+			{/*<Redirect from='/*' to="/home"/>*/}
 			</Switch>
 
 		</div>

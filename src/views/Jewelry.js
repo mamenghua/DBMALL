@@ -53,7 +53,10 @@ componentDidMount(){
 		document.getElementsByClassName('user')[1].style.display = 'none';
 	}
 }
-
+onClick=()=>{
+	let value=document.getElementsByClassName('ipt')[0].value
+	this.props.history.push('/search',value)
+}
 checkout(e,index){
 	console.log(e,index)
 	this.setState({
@@ -139,8 +142,8 @@ return(
 				<img src='../imgs/logo_01.png' alt=''/>
 				<span>名表饰品</span>
 				<div className={home.search}>
-					<input placeholder="搜索商品"/>
-					<a className={home.search_btn}>搜索</a>
+					<input placeholder="搜索商品" className='ipt'/>
+					<a className={home.search_btn} onClick={this.onClick}>搜索</a>
 				</div>
 				<NavLink className={home.mycart} to="">
 				我的购物车

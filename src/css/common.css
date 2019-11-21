@@ -132,4 +132,11 @@
 	margin: 0 auto;
 	float: none;
   }
-  
+
+.prod_img{
+	text-align: center;
+}
+.none{
+	width:40%;
+	margin: auto;
+}

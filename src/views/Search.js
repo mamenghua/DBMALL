@@ -11,31 +11,40 @@ export default class Book extends Component{
 constructor(props){
 	super(props)
 	this.state={
-		booklist:[],
-		book2list:[],
+		pruducts:[],
 		targetOffset: undefined,
 		token:localStorage.getItem("token"),
 		user:[],
 		total:0,
 		current:1,
-		classify:'科幻时空'
+		flag:1
 	}
 }
 onChange = page => {
     this.setState({
       current: page,
     });
-	api.getProducts({per:8,page:page,name:this.state.classify}).then((data)=>{
-		this.setState({booklist:data.data.products})
+	api.getProducts({per:8,page:page,name:this.props.location.state}).then((data)=>{
+		this.setState({pruducts:data.data.products})
 		this.setState({total:data.data.totalCount})
 	})
   };
 
 
 componentDidMount(){
-	api.getProducts({per:8,page:this.state.current,name:this.state.classify}).then((data)=>{
-		this.setState({booklist:data.data.products})
+	api.getProducts({per:8,page:this.state.current,name:this.props.location.state}).then((data)=>{
+		this.setState({pruducts:data.data.products})
 		this.setState({total:data.data.totalCount})
+		this.setState({flag:data.data.products.length})
+		if(data.data.products.length==0){
+			document.getElementsByClassName('prod')[0].style.display = 'none';
+			document.getElementsByClassName('prod')[1].style.display = 'block';
+		}else{
+			document.getElementsByClassName('prod')[0].style.display = 'block';
+			document.getElementsByClassName('prod')[1].style.display = 'none';
+		}
+	}).catch((data)=>{
+		console.log(data)
 	})
 	
 	API.usermsg(localStorage.getItem("token")).then((data)=>{
@@ -52,27 +61,15 @@ componentDidMount(){
 		document.getElementsByClassName('user')[0].style.display = 'block';
 		document.getElementsByClassName('user')[1].style.display = 'none';
 	}
-}
-onClick=()=>{
-	let value=document.getElementsByClassName('ipt')[0].value
-	this.props.history.push('/search',value)
-}
-checkout(e,index){
-	this.setState({
-	  classify: e,
-	  current:1
-	});
-	api.getProducts({per:8,page:1,name:e}).then((data)=>{
-		this.setState({classify: e,booklist:data.data.products,total:data.data.totalCount})
-		// this.setState({total:data.data.totalCount})
-		for(let i = 0;i<document.getElementsByClassName('dianji').length;i++){
-			document.getElementsByClassName('dianji')[i].classList.remove("active");
-		}
-		document.getElementsByClassName('dianji')[index-1].classList.add("active");
-	})
 	
-	
-}
+}	
+	onClick=()=>{
+		let value=document.getElementsByClassName('ipt')[0].value
+		this.props.history.push('/search',value)
+		window.location.reload()
+	}
+
+
 
 render(){
 	const menu1=(
@@ -139,7 +136,7 @@ return(
 		<div className={home.logo}>
 			<div className={home.logo_content}>
 				<img src='../imgs/logo_01.png' alt=''/>
-				<span>网络文学</span>
+				<img src='../imgs/logo_02.png' alt=''/>
 				<div className={home.search}>
 					<input placeholder="搜索商品" className='ipt'/>
 					<a className={home.search_btn} onClick={this.onClick}>搜索</a>
@@ -199,10 +196,7 @@ return(
 		</div>
 		
 		<div className='btnbox'>
-			<span className='active dianji' onClick={()=>this.checkout("科幻时空",1)}>科幻时空</span>
-			<span className='dianji' onClick={()=>this.checkout("都市逸闻",2)}>都市逸闻</span>
-			<span className='dianji' onClick={()=>this.checkout("游戏异界",3)}>游戏异界</span>
-			<span className='dianji' onClick={()=>this.checkout("新九州",4)}>新九州</span>
+			<span className='active dianji'>{this.props.location.state}</span>
 		</div>
 		
 		<div className="products">
@@ -210,19 +204,29 @@ return(
 			
 			<div>
 			<div className={home.floweritem}>
+			<div className='prod'>
 				{
-					this.state.booklist.map((item,i)=>{
+					this.state.pruducts.map((item,i)=>{
 						return(
 							<div key={i} className={home.bitem}>
+							
 								<NavLink to={'/detail/'+item._id}>
 								<img src={item.coverImg} className={home.bimg} alt=''/>
 								<p>{item.descriptions}<span className={home.hot}>抢购价:{item.price}¥</span></p>
 								
 								</NavLink>
+							
+
 							</div>
 						)
 					})
 				}
+			</div>
+			<div className='prod'>
+				<div className='prod_img'>
+				<img src='../imgs/none.png' alt='' className='none'/>
+				</div>
+			</div>
 				
 			</div>
 			</div>

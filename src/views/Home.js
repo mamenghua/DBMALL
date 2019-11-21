@@ -24,7 +24,7 @@ constructor(props){
 		booklist:[],
 		targetOffset: undefined,
 		token:localStorage.getItem("token"),
-		user:[]
+		user:[],
 	}
 }
 
@@ -71,7 +71,10 @@ componentDidMount(){
 		document.getElementsByClassName('user')[1].style.display = 'none';
 	}
 }
-
+onClick=()=>{
+	let value=document.getElementsByClassName('ipt')[0].value
+	this.props.history.push('/search',value)
+}
 handleScroll = e => {
 	if(e.srcElement.scrollingElement.scrollTop>600){
 		document.getElementsByClassName("ant-anchor")[0].style.display='block'
@@ -83,6 +86,7 @@ componentWillUnmount() {
 	//移除监听器，以防多个组件之间导致this的指向紊乱
     window.removeEventListener('scroll', this.onScroll) 
 }
+
 render(){
 	const menu1=(
 		<Menu>
@@ -151,8 +155,8 @@ return(
 				<img src='../imgs/logo_01.png' alt=''/>
 				<img src='../imgs/logo_02.png' alt=''/>
 				<div className={home.search}>
-					<input placeholder="搜索商品"/>
-					<a className={home.search_btn}>搜索</a>
+					<input placeholder="搜索商品" className='ipt'/>
+					<a className={home.search_btn} onClick={this.onClick}>搜索</a>
 				</div>
 				<NavLink className={home.mycart} to="/cart">
 				我的购物车
