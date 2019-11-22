@@ -16,6 +16,7 @@ import Cart from './views/Cart'
 import Mymall from './views/Mymall'
 import Footer from './views/Footer'
 import Order from './views/Order'
+import AddOrder from './views/AddOrder'
 
 function App() {
   return (
@@ -36,9 +37,10 @@ function App() {
 			<Route path="/loginsuccess" component={LoginSuccess}></Route>
 			<Route path="/register" component={Register}></Route>
 			<Route path="/cart" component={Cart}></Route>
-			<Route path="/mymall" component={Mymall}>
-				
-			</Route>
+			<Route path="/mymall" component={Mymall}></Route>
+			<Route path="/order/:id" component={Mymall}></Route>
+			<Route path="/addorder" component={AddOrder}></Route>
+			
 			<Redirect from='/*' to="/home"/>
 			</Switch>
 		</div>

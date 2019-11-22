@@ -5,3 +5,19 @@
 	margin: 20px 0 20px;
 	float: right;
 }
+.section>P{
+	background: rgb(248,248,248);
+	padding-bottom: 10px;
+}
+.list{
+	margin-left: 2%;
+	margin-bottom: 2%;
+	width: 96%;
+	min-height: 400px;
+}
+.ant-input-group-wrapper{
+	width: 200px;
+}
+#ipt{
+	width: 300px!important;
+}

@@ -106,7 +106,7 @@ return(
 				</li>
 				<li>/</li>
 				<li>
-					<NavLink to="">我的订单</NavLink>
+					<NavLink to="/mymall">我的订单</NavLink>
 				</li>	
 				<li>/</li>
 				<li>
@@ -136,7 +136,7 @@ return(
 				<NavLink className={home.mycart} to="/cart">
 				我的购物车
 				</NavLink>
-				<NavLink className={home.mymall} to="">
+				<NavLink className={home.mymall} to="/mymall">
 				我的商城
 				</NavLink>
 				
@@ -195,7 +195,7 @@ return(
 			 数量:  <InputNumber min={1}  defaultValue={1} onChange={this.onChange} />
 			 <span className='totalpricebox'>总价:  <span className='totalprice'>¥{this.state.totalprice}</span></span>
 			</div>
-			<a className='buy'>立即购买</a>
+			<NavLink to="/addorder" className='buy'>立即购买</NavLink>
 			<a className='addcart' onClick={this.addCart}>加入购物车</a>
 		</div>
 	</div>
