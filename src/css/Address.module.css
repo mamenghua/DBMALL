@@ -1,0 +1,23 @@
+.section{
+	width: calc(98% - 210px);
+	background: white;
+	min-height: 200px;
+	margin: 20px 0 20px;
+	float: right;
+}
+.tit{
+	color: red;
+	font-weight: bold;
+	line-height: 36px;
+	border-bottom: 1px solid #e7e7e7;
+	padding: 10px;
+}
+.tipBox{
+	background: #dff0d8;
+	border-top: 1px solid #d6e9c6;
+	border-bottom: 1px solid #d6e9c6;
+	padding: 0 10px;
+}
+.tipBox h4{
+	font-weight: bold;
+}

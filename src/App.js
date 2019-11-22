@@ -40,7 +40,7 @@ function App() {
 			<Route path="/mymall" component={Mymall}></Route>
 			<Route path="/order/:id" component={Mymall}></Route>
 			<Route path="/addorder" component={AddOrder}></Route>
-			
+			<Route path="/address" component={Mymall}></Route>
 			<Redirect from='/*' to="/home"/>
 			</Switch>
 		</div>
