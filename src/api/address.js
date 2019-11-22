@@ -15,3 +15,7 @@ export const addAddress = (params,token)=>{
 export const searchAddress = (id,token)=>{
     return API.TOKENGET('/api/v1/addresses/'+id,token);
 }
+
+export const modAddress = (id,params,token)=>{
+    return API.TOKENPARAMSPUT('/api/v1/addresses/'+id,params,token);
+}

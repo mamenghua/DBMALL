@@ -3,47 +3,11 @@ import address from '../css/Address.module.css'
 import { Table, Button, Icon, Modal, message, Form, Col, Row, Input, Select, Cascader } from 'antd';
 
 import * as api from '../api/address';
+import Position from './Postion';
 
 const { confirm } = Modal;
 const { Option } = Select;
 
-const options = [
-    {
-        value: '河南省',
-        label: '河南省',
-        children: [
-            {
-                value: '郑州市',
-                label: '郑州市',
-                children: [
-                    {
-                        value: '高新区',
-                        label: '高新区',
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        value: 'jiangsu',
-        label: 'Jiangsu',
-        children: [
-            {
-                value: 'nanjing',
-                label: 'Nanjing',
-                children: [
-                    {
-                        value: 'zhonghuamen',
-                        label: 'Zhong Hua Men',
-                    },
-                ],
-            },
-        ],
-    },
-];
-function onChange(value) {
-    console.log(value);
-}
 export default class Address extends Component {
     constructor(props) {
         super(props);
@@ -55,8 +19,33 @@ export default class Address extends Component {
             mobile:'',
             regions:[],
             address:'',
-            isDefault:false
+            isDefault:false,
+            modid:''
         }
+    }
+    // 展示列表，封装为函数，供多处调用
+    showAddress = ()=>{
+        api.getAddress({}, localStorage.getItem('token')).then((data) => {
+            let arrlist = data.data.addresses;
+            let list = [];
+            arrlist.map((item, i) => {
+                let obj = {};
+                obj.key = i;
+                obj.receiver = item.receiver;
+                obj.regions = item.regions;
+                obj.address = item.address;
+                obj.mobile = item.mobile;
+                if(item.isDefault === true){
+                    obj.isDefault = true;
+                }else{
+                    obj.isDefault = false;
+                }
+                obj.id = item._id;
+                obj._id = item._id;
+                list.push(obj);
+            })
+            this.setState({ data: list });
+        })
     }
     // 判断是否删除
     showConfirm = (delid) => {
@@ -89,31 +78,35 @@ export default class Address extends Component {
 
     }
 
-
     showModal = () => {
         this.setState({
             visible: true,
         });
     };
     editshowModal = (id)=>{
-        console.log(id);
         this.setState({
             editvisible: true,
         });
         // 根据id查询
         api.searchAddress(id,localStorage.getItem('token')).then((data)=>{
-            console.log(data.data);
+            this.setState({
+                receiver:data.data.receiver,
+                mobile:data.data.mobile,
+                regions:[...data.data.regions.split('-')],
+                address:data.data.address,
+                isDefault:data.data.isDefault,
+                modid:id
+            });
         }).catch((err)=>{
             console.log(err);
         })
     }
+    // 新增
     handleOk = e => {
-        console.log(e);
-        console.log(this.refs.idDefault)
+        let _this = this;
         let receiver = '';
         let mobile = 0;
         let regions = '';
-        let idDefault = false;
         let address = '';
         if(this.refs.name.state.value !== undefined){
             receiver = this.refs.name.state.value;
@@ -124,87 +117,94 @@ export default class Address extends Component {
         if(this.refs.regions.state.value !== undefined){
             regions = this.refs.regions.state.value.join('-');
         }
-        // if(this.refs.idDefault.state.value === 'true'){
-        //     idDefault = true;
-        // }
         if(this.refs.address.state.value !== undefined){
             address = this.refs.address.state.value;
         }
-        // console.log(receiver , mobile , regions , idDefault , address);
         api.addAddress({
             receiver:receiver,
             mobile:mobile,
             regions:regions,
             address:address,
-            idDefault:idDefault
+            isDefault:this.state.isDefault
         },localStorage.getItem('token')).then((data)=>{
             if(data.data.code === 'success'){
                 message.success(data.data.message);
             }else{
                 message.error('新增地址失败');
             }
+            // 新增列表之后，刷新列表页面
+            _this.showAddress();
+
         }).catch((err)=>{
             console.log(err);
         })
-
-        api.getAddress({},localStorage.getItem('token')).then((data) => {
-            let arrlist = data.data.addresses;
-            let list = [];
-            arrlist.map((item, i) => {
-                let obj = {};
-                obj.key = i;
-                obj.receiver = item.receiver;
-                obj.regions = item.regions;
-                obj.address = item.address;
-                obj.mobile = item.mobile;
-                obj.id = item._id;
-                obj._id = item._id;
-                list.push(obj);
-            })
-            this.setState({ visible: false,data: list });
-        })
-        
+        this.setState({ visible: false });
         
     };
 
     handleCancel = e => {
-        console.log(e);
         this.setState({
             visible: false,
         });
     };
 
-    handleOk = e => {
-        console.log(e);
+    edithandleOk = e => {
         this.setState({
             editvisible: false,
         });
-        
+        let _this = this;
+        api.modAddress(this.state.modid,{
+            receiver:this.state.receiver,
+            mobile:this.state.mobile,
+            regions:this.state.regions.join('-'),
+            address:this.state.address,
+            isDefault:this.state.isDefault
+        },localStorage.getItem('token')).then((data)=>{
+            _this.showAddress();
+        }).catch((err)=>{
+            console.log(err);
+        })
     };
 
     edithandleCancel = e => {
-        console.log(e);
         this.setState({
             editvisible: false,
+            receiver: '',
+            mobile:'',
+            regions:[...this.state.regions.splice(0)],
+            address:'',
+            isDefault:false
         });
     };
-    componentDidMount() {
-        api.getAddress({}, localStorage.getItem('token')).then((data) => {
-            let arrlist = data.data.addresses;
-            let list = [];
-            arrlist.map((item, i) => {
-                let obj = {};
-                obj.key = i;
-                obj.receiver = item.receiver;
-                obj.regions = item.regions;
-                obj.address = item.address;
-                obj.mobile = item.mobile;
-                obj.id = item._id;
-                obj._id = item._id;
-                list.push(obj);
-            })
-            this.setState({ data: list });
+
+    changeReceiver = e =>{
+        this.setState({
+            receiver:e.target.value
         })
+    }
+    changeMobile = e =>{
+        this.setState({
+            mobile:e.target.value
+        })
+    }
+    changeRegions = e =>{
+        this.setState({
+            regions:e
+        })
+    }
+    changeIsDefault = e =>{
+        this.setState({
+            isDefault:e
+        })
+    }
+    changeAddress = e =>{
+        this.setState({
+            address:e.target.value
+        })
+    }
+    componentDidMount() {
+        // 调用展示列表函数，显示
+        this.showAddress();
     }
     render() {
         const columns = [
@@ -227,6 +227,11 @@ export default class Address extends Component {
             {
                 title: '电话/手机',
                 dataIndex: 'mobile',
+            },
+            {
+                title: '是否默认true/false',
+                dataIndex: 'isDefault',
+                render: (text, record, index) => ''+text
             },
             {
                 title: '操作',
@@ -253,7 +258,6 @@ export default class Address extends Component {
                     地址列表
                     <Button type="danger" style={{ float: 'right' }} onClick={this.showModal}>新增地址</Button>
                 </h3>
-
                 <Modal
                     title="新增地址"
                     visible={this.state.visible}
@@ -265,25 +269,24 @@ export default class Address extends Component {
                     <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item label="Name">
-                                <Input placeholder="请输入收货人姓名" ref="name" />
+                                <Input placeholder="请输入收货人姓名" maxLength={4} ref="name" />
                             </Form.Item>
                         </Col>
                         <Col span={12}>
                             <Form.Item label="Mobile">
-                                <Input placeholder="请输入手机号" ref="mobile"/>
+                                <Input placeholder="请输入手机号" maxLength={11} ref="mobile"/>
                             </Form.Item>
                         </Col>
                     </Row>
-
                     <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item label="Regions">
-                                <Cascader options={options} onChange={onChange} placeholder="Please select" ref="regions"/>
+                                <Cascader options={Position} placeholder="Please select" ref="regions"/>
                             </Form.Item>
                         </Col>
                         <Col span={12}>
-                            <Form.Item label="idDefault">
-                                <Select style={{width:'100%'}} ref="idDefault">
+                            <Form.Item label="isDefault">
+                                <Select style={{width:'100%'}} value={''+this.state.isDefault} onChange={this.changeIsDefault.bind(this)} >
                                     <Option value="true">true</Option>
                                     <Option value="false">false</Option>
                                 </Select>
@@ -311,12 +314,12 @@ export default class Address extends Component {
                     <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item label="Name">
-                                <Input placeholder="请输入收货人姓名" ref="editname"/>
+                                <Input placeholder="请输入收货人姓名" maxLength={4} value={this.state.receiver} onChange={this.changeReceiver.bind(this)}/>
                             </Form.Item>
                         </Col>
                         <Col span={12}>
                             <Form.Item label="Mobile">
-                                <Input placeholder="请输入手机号" ref="editmobile"/>
+                                <Input placeholder="请输入手机号" maxLength={11} value={this.state.mobile} onChange={this.changeMobile.bind(this)}/>
                             </Form.Item>
                         </Col>
                     </Row>
@@ -324,12 +327,13 @@ export default class Address extends Component {
                     <Row gutter={16}>
                         <Col span={12}>
                             <Form.Item label="Regions">
-                                <Cascader options={options} onChange={onChange} placeholder="Please select" ref="editregions"/>
+                                <Cascader options={Position} onChange={this.changeRegions.bind(this)} placeholder="Please select" 
+                                            value={this.state.regions} />
                             </Form.Item>
                         </Col>
                         <Col span={12}>
-                            <Form.Item label="idDefault">
-                                <Select style={{width:'100%'}} ref="editidDefault">
+                            <Form.Item label="isDefault">
+                                <Select style={{width:'100%'}} value={''+this.state.isDefault} onChange={this.changeIsDefault.bind(this)} >
                                     <Option value="true">true</Option>
                                     <Option value="false">false</Option>
                                 </Select>
@@ -339,7 +343,7 @@ export default class Address extends Component {
                     <Row gutter={16}>
                         <Col span={24}>
                             <Form.Item label="Address">
-                                <Input placeholder="请输入详细地址" ref="editaddress" />
+                                <Input placeholder="请输入详细地址" value={this.state.address} onChange={this.changeAddress.bind(this)}/>
                             </Form.Item>
                         </Col>
                     </Row>

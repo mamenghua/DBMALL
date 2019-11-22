@@ -71,3 +71,14 @@ export const TOKENPARAMSGET = (url,params,token)=>{
         return data;
     })
 }
+
+export const TOKENPARAMSPUT = (url,params,token)=>{
+    return axios({
+        method:'put',
+        url:`${baseURL}${url}`,
+        data:params,
+		headers:{"authorization":"Bearer "+token},
+		}).then((data)=>{
+        return data;
+    })
+}
