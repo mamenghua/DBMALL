@@ -22,6 +22,25 @@ export const TOKENGET = (url,token)=>{
     })
 }
 
+export const SEARCHORDER = (url,token)=>{
+    return axios({
+    	url:`${baseURL}${url}`,
+    	headers:{"authorization":"Bearer "+token},
+    	}).then((data)=>{
+        return data;
+    })
+}
+
+export const TOKENGETORDER = (url,params,token)=>{
+    return axios({
+		url:`${baseURL}${url}`,
+		params:params,
+		headers:{"authorization":"Bearer "+token},
+		}).then((data)=>{
+        return data;
+    })
+}
+
 export const TOKENPOST = (url,params,token)=>{
     return axios({
 		method:'post',

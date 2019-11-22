@@ -35,8 +35,9 @@ componentDidMount(){
 	api.getProducts({per:5}).then((data)=>{
 		this.setState({productslist:data.data.products})
 	})
-	api.getProducts({per:8,name:"优典"}).then((data)=>{
+	api.getProducts({per:4,name:"商务活动小礼品"}).then((data)=>{
 		this.setState({youdianlist:data.data.products})
+		console.log(data.data)
 	})
 	api.getProducts({per:8,name:"开业花篮"}).then((data)=>{
 		this.setState({flowerlist:data.data.products})
@@ -131,7 +132,7 @@ return(
 				</li>
 				<li>/</li>
 				<li>
-					<NavLink to="">我的订单</NavLink>
+					<NavLink to="/mymall">我的订单</NavLink>
 				</li>	
 				<li>/</li>
 				<li>
@@ -244,7 +245,7 @@ return(
 		<div className={home.products}>
 		<div className={home.products_content}>
 				<img src='../imgs/before.png' className={home.before} alt=''/>
-				<h2 id="优典新品">优典新品</h2>
+				<h2 id="活动礼品">活动礼品</h2>
 				<div>
 					<div className={home.youdianitem}>
 						{
@@ -254,8 +255,7 @@ return(
 										<NavLink to={'/detail/'+item._id}>
 										<img src={item.coverImg} className={home.ydimg} alt=''/>
 										<p>{item.name}</p>
-										<p>{item.descriptions}<span className={home.hot}>尝鲜价:{item.price}¥</span></p>
-										
+										<span className={home.hot}>尝鲜价:{item.price}¥</span>
 										</NavLink>
 									</div>
 								)
@@ -391,7 +391,7 @@ return(
 		
 		<Anchor id="anchor"  targetOffset={this.state.targetOffset}>
 			<Link href="#回到顶部" title="回到顶部" />
-			<Link href="#优典新品" title="优典新品" />
+			<Link href="#活动礼品" title="活动礼品" />
 			<Link href="#开业花篮" title="开业花篮" />
 			<Link href="#精品服饰" title="精品服饰" />
 			<Link href="#正品专柜" title="正品专柜" />

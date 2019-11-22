@@ -32,7 +32,7 @@ export default class Cart extends Component {
         }, 1000);
     };
     numberChange = (value, oldvalue, id) => {
-        // console.log('changed', value,oldvalue,id);
+        // console.log( value,oldvalue,id);
         let newValue = parseInt(value);
         let oldValue = parseInt(oldvalue);
         let diff = newValue - oldValue;
@@ -136,6 +136,7 @@ export default class Cart extends Component {
             let cartlist = data.data;
             let list = [];
             cartlist.map((item, i) => {
+				console.log(item)
                 let obj = {};
                 if (item.product === null) {
                     obj.id = "默认id";
@@ -254,7 +255,7 @@ export default class Cart extends Component {
                             </li>
                             <li>/</li>
                             <li>
-                                <NavLink to="">我的订单</NavLink>
+                                <NavLink to="/mymall">我的订单</NavLink>
                             </li>
                             <li>/</li>
                             <li>
@@ -292,7 +293,7 @@ export default class Cart extends Component {
                                     <Icon type="rollback" />
                                     马上去购物
                             </NavLink>
-                                <NavLink to="/home">
+                                <NavLink to="/order">
                                     <Icon type="file-done" />
                                     查看自己的订单
                             </NavLink>

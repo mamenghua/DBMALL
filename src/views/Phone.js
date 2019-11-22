@@ -119,7 +119,7 @@ return(
 				</li>
 				<li>/</li>
 				<li>
-					<NavLink to="">我的订单</NavLink>
+					<NavLink to="/mymall">我的订单</NavLink>
 				</li>	
 				<li>/</li>
 				<li>
@@ -146,10 +146,10 @@ return(
 					<input placeholder="搜索商品" className='ipt'/>
 					<a className={home.search_btn} onClick={this.onClick}>搜索</a>
 				</div>
-				<NavLink className={home.mycart} to="">
+				<NavLink className={home.mycart} to="/cart">
 				我的购物车
 				</NavLink>
-				<NavLink className={home.mymall} to="">
+				<NavLink className={home.mymall} to="/mymall">
 				我的商城
 				</NavLink>
 				
