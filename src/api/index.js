@@ -71,3 +71,14 @@ export const TOKENPARAMSGET = (url,params,token)=>{
         return data;
     })
 }
+
+export const SUBMIT = (url,data,token)=>{
+    return axios({
+		method:'post',
+        url:`${baseURL}${url}`,
+        data:data,
+		headers:{"authorization":"Bearer "+token},
+		}).then((data)=>{
+        return data;
+    })
+}

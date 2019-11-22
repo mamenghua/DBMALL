@@ -81,7 +81,7 @@ export default class Mymall extends Component {
                             </li>
                             <li>/</li>
                             <li>
-                                <NavLink to="">我的订单</NavLink>
+                                <NavLink to="/order">我的订单</NavLink>
                             </li>
                             <li>/</li>
                             <li>
@@ -120,7 +120,7 @@ export default class Mymall extends Component {
 									<span>· 交易管理<Icon type="caret-up" /></span>
 									<ul>
 										<li><NavLink to="/order">我的订单</NavLink></li>
-										<li>购物车</li>
+										<li><NavLink to="/cart">购物车</NavLink></li>
 									</ul>
 								</li>
 								<li>

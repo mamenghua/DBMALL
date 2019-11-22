@@ -71,3 +71,7 @@
 .sidebarbox>ul>li>ul>li:hover{
 	background: rgb(250,250,250);
 }
+
+li a{
+	color: #777;
+}

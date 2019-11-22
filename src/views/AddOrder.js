@@ -1,25 +1,34 @@
 import React, { Component } from 'react';
 import '../css/reset.css'
 import '../css/common.css'
-import { Dropdown,Icon} from 'antd';
+import { Dropdown,Icon,Button} from 'antd';
 import cart from '../css/Cart.module.css'
 import mymall from '../css/Mymall.module.css'
 import addorder from '../css/AddOrder.module.css'
 import { NavLink } from 'react-router-dom';
 import * as API from "../api/user.js";
+import * as Api from "../api/products.js";
+import * as api from "../api/address.js";
+import * as apI from "../api/order.js";
 
 export default class Cart extends Component {
     constructor(props) {
         super(props);
         this.state = {
             user: '',
-            
+            receiver:'',
+			regions:'',
+			address:'',
+			mobile:'',
+			count:0,
+			quantity:0,
+			price:0,
+			product:'',
+			productlist:[],
+			data:[]
         }
 
     }
-    
-    
-
     componentDidMount() {
         // 用户名
         if (localStorage.getItem('token')) {
@@ -35,8 +44,39 @@ export default class Cart extends Component {
         }).catch((data)=>{
             this.setState({user:' 您暂未登录 '})
         })
-
+		
+		//获取收货人信息
+		api.getAddress({},localStorage.getItem('token')).then((data)=>{
+			this.setState({receiver:data.data.addresses[0].receiver,regions:data.data.addresses[0].regions,address:data.data.addresses[0].address,mobile:data.data.addresses[0].mobile})
+		})
+		if(this.props.location.query.id){
+			Api.getProductMsg(this.props.location.query.id).then((data)=>{
+				let arr=[]
+				arr.push(data.data)
+				this.setState({data:arr,count:this.props.location.query.count,id:this.props.location.query.id})
+				console.log(this.state.data)
+			})
+		}
+		//提交订单
+		
     }
+	
+	submit=()=>{
+		console.log(1)
+		let orderDetails=[]
+		apI.submitOrder(
+			localStorage.getItem('token'),
+			{
+				receiver:this.state.receiver,
+				regions:this.state.regions,
+				address:this.state.address,
+				orderDetails:this.state.productlist
+			}
+		).then((data)=>{
+			console.log(data)
+		})
+	}
+	
     render() {
         return (
             <div>
@@ -102,7 +142,7 @@ export default class Cart extends Component {
 					   <br/>
 					   <div className={addorder.info}>
 							<h3>收货人信息</h3>
-							<span></span>
+							<span><strong>{this.state.receiver}</strong> &nbsp;{this.state.regions}{this.state.address}  &nbsp;<Icon type="mobile" />{this.state.mobile}</span>
 					   </div>
 					   <div className={addorder.info}>
 							<h3>支付方式</h3>
@@ -114,8 +154,51 @@ export default class Cart extends Component {
 					   </div>
 					   <div className={addorder.info}>
 							<h3>商品清单</h3>
-							<span>不需要发票</span>
+							<ul>
+							<li>
+								<span className={addorder.good}>商品</span>
+								<span className={addorder.price}>单价</span>
+								<span className={addorder.num}>数量</span>
+								<span className={addorder.totalprice}>小计(元)</span>
+							</li>
+							{
+								this.state.data.map((item,i)=>{
+									this.setState({quantity:this.state.count,price:item.price})
+									// let obj={}
+									// obj.quantity=this.state.count
+									// obj.product=this.state.id
+									// obj.price=item.price
+									// let arr=[]
+									// arr.push(obj)
+									//this.setState({productlist:arr})
+									return(
+										<li key={i}>
+											<img src={item.coverImg} alt=''/>
+											<span className={addorder.name}>{item.name}</span>
+											<span className={addorder.price}>{item.price}</span>
+											<span className={addorder.num}>{this.state.count}</span>
+											<span className={addorder.totalprice}>{item.price*this.state.count}</span>
+										</li>
+									)
+								})
+							}
+							{
+								this.state.data.map((item,i)=>{
+									let totalPrice=0
+									totalPrice+=item.price*this.state.count
+									
+									return(
+										<h2 key={i}>实付金额:<span className={addorder.hot}>{totalPrice}</span>元</h2>
+									)
+								})
+							}
+							</ul>
+							
 					   </div>
+					   <div className={addorder.button}>
+					   <Button type="primary" onClick={()=>this.submit()}>提交订单</Button>
+					   </div>
+					   
                     </div>
                 </div>
             </div>

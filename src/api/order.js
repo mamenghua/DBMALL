@@ -11,3 +11,7 @@ export const delOrder = (id,token)=>{
 export const searchOrder = (id,token)=>{
     return API.TOKENGET('/api/v1/orders/'+id,token);
 }
+
+export const submitOrder = (data,token)=>{
+    return API.SUBMIT('/api/v1/orders',data,token);
+}
