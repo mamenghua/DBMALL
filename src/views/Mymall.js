@@ -7,6 +7,7 @@ import mymall from '../css/Mymall.module.css'
 import home from '../css/Home.module.css'
 import order from '../css/Order.module.css'
 import Order from './Order'
+import Address from './Address'
 import { NavLink } from 'react-router-dom';
 import { Button, Icon, Modal } from 'antd';
 import * as api from '../api/cart';
@@ -107,6 +108,7 @@ export default class Mymall extends Component {
                     </div>
 
                 </header>
+                <Router>
                 <div className={cart.container}>
                     <div className="content">
                         <div className={mymall.sidebarbox}>
@@ -117,7 +119,7 @@ export default class Mymall extends Component {
 								<li>
 									<span>· 交易管理<Icon type="caret-up" /></span>
 									<ul>
-										<li>我的订单</li>
+										<li><NavLink to="/order">我的订单</NavLink></li>
 										<li>购物车</li>
 									</ul>
 								</li>
@@ -127,7 +129,7 @@ export default class Mymall extends Component {
 										<li>代言人中心</li>
 										<li>账户信息</li>
 										<li>账户安全</li>
-										<li>收货地址</li>
+										<li><NavLink to="/address">收货地址</NavLink></li>
 										<li>我的消息</li>
 										<li>我的积分</li>
 										<li>我的卡包</li>
@@ -144,14 +146,19 @@ export default class Mymall extends Component {
                             </ul>
                         </div>
 						
-						<Router>
+						
 							<div>
-							<Route path="/order" component={Order}></Route>
-								<Redirect to="/order"/>
+                                <Switch>
+                                    <Route path="/order" component={Order}></Route>
+                                    <Route path="/address" component={Address}></Route>
+								    <Redirect to="/order"/>
+                                </Switch>
 							</div>
-						</Router>
+						
                     </div>
                 </div>
+                </Router>
+
             </div>
         )
     }
