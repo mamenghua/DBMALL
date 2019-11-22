@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../css/reset.css'
 import '../css/common.css'
-import { Dropdown,Icon,Button} from 'antd';
+import { Dropdown,Icon,Button,message} from 'antd';
 import cart from '../css/Cart.module.css'
 import mymall from '../css/Mymall.module.css'
 import addorder from '../css/AddOrder.module.css'
@@ -54,26 +54,31 @@ export default class Cart extends Component {
 				let arr=[]
 				arr.push(data.data)
 				this.setState({data:arr,count:this.props.location.query.count,id:this.props.location.query.id})
-				console.log(this.state.data)
 			})
 		}
-		//提交订单
+		
 		
     }
-	
+	//提交订单
 	submit=()=>{
-		console.log(1)
-		let orderDetails=[]
+		
+		let productlist = [];
+		this.state.data.map((item)=>{
+			let obj = {};
+			obj.quantity = item.quantity;
+			obj.product = item._id;
+			obj.price = item.price;
+			productlist.push(obj)
+		})
 		apI.submitOrder(
-			localStorage.getItem('token'),
 			{
 				receiver:this.state.receiver,
 				regions:this.state.regions,
 				address:this.state.address,
-				orderDetails:this.state.productlist
-			}
+				orderDetails:productlist
+			},localStorage.getItem('token')
 		).then((data)=>{
-			console.log(data)
+			message.success('提交订单成功');
 		})
 	}
 	
@@ -163,14 +168,6 @@ export default class Cart extends Component {
 							</li>
 							{
 								this.state.data.map((item,i)=>{
-									this.setState({quantity:this.state.count,price:item.price})
-									// let obj={}
-									// obj.quantity=this.state.count
-									// obj.product=this.state.id
-									// obj.price=item.price
-									// let arr=[]
-									// arr.push(obj)
-									//this.setState({productlist:arr})
 									return(
 										<li key={i}>
 											<img src={item.coverImg} alt=''/>
@@ -181,12 +178,11 @@ export default class Cart extends Component {
 										</li>
 									)
 								})
-							}
+							},
 							{
 								this.state.data.map((item,i)=>{
 									let totalPrice=0
 									totalPrice+=item.price*this.state.count
-									
 									return(
 										<h2 key={i}>实付金额:<span className={addorder.hot}>{totalPrice}</span>元</h2>
 									)
