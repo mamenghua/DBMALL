@@ -32,12 +32,10 @@ export default class Cart extends Component {
         }, 1000);
     };
     numberChange = (value, oldvalue, id) => {
-        // console.log( value,oldvalue,id);
         let newValue = parseInt(value);
         let oldValue = parseInt(oldvalue);
         let diff = newValue - oldValue;
         api.addCart({ product: id, quantity: diff }, localStorage.getItem('token')).then((data) => {
-            // console.log(data.data);
         }).catch((err) => {
             message.error('购物车更改失败！' + err);
         })
@@ -118,7 +116,6 @@ export default class Cart extends Component {
             totalprice += this.state.list[item].totalprice;
         })
         this.setState({ totalprice: totalprice, selectedRowKeys })
-        // console.log('selectedRowKeys changed: ', selectedRowKeys);
     };
 
     componentDidMount() {
@@ -136,7 +133,6 @@ export default class Cart extends Component {
             let cartlist = data.data;
             let list = [];
             cartlist.map((item, i) => {
-				console.log(item)
                 let obj = {};
                 if (item.product === null) {
                     obj.id = "默认id";

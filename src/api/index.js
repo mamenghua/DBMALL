@@ -77,6 +77,16 @@ export const TOKENPARAMSPUT = (url,params,token)=>{
         method:'put',
         url:`${baseURL}${url}`,
         data:params,
+        headers:{"authorization":"Bearer "+token},
+		}).then((data)=>{
+        return data;
+    })
+}
+export const SUBMIT = (url,data,token)=>{
+    return axios({
+		method:'post',
+        url:`${baseURL}${url}`,
+        data:data,
 		headers:{"authorization":"Bearer "+token},
 		}).then((data)=>{
         return data;

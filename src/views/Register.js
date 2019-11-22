@@ -48,7 +48,6 @@ export default class Register extends Component {
 			avatar:avantImg
 		}).then((data)=>{
 			// 登录成功
-			console.log(data.data);
 			if(data.data.code === "success"){
 				localStorage.setItem('token',data.data.token);
 				this.props.history.push('/loginsuccess');

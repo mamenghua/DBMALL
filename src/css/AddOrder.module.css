@@ -10,10 +10,66 @@
 	padding: 9px 19px;
 	border: 1px solid #eee;
 }
+.contain .info:last-of-type{
+	padding-bottom: 50px;
+}
 .contain .info>span{
 	line-height: 20px;
 	display: block;
 	min-height: 20px;
 	padding: 5px 0 6px 0;
 	font-size: 12px;
+}
+.contain .info .good{
+	display: inline-block;
+	width: 500px;
+	text-align: center;
+}
+.contain .info ul{
+	border: 1px solid #eee;
+	border-right: 0;
+}
+.contain .info li{
+	border-bottom: 1px solid #eee;
+	background: rgb(255,253,238);
+	min-height: 50px;
+	line-height: 50px;
+	text-align: center;
+}
+.contain .info li:nth-child(1){
+	background: none;
+}
+.contain .info img{
+	width: 50px;
+}
+.contain .info .name{
+	display: inline-block;
+	width: 450px;
+}
+.contain .info .price{
+	display: inline-block;
+	width: 150px;
+	text-align: center;
+}
+.contain .info .num{
+	display: inline-block;
+	width: 120px;
+	text-align: center;
+}
+.contain .info .totalprice{
+	display: inline-block;
+	width: 180px;
+	text-align: center;
+}
+.contain .info h2{
+	margin-top: 20px;
+	float: right;
+}
+
+.contain .info h2 .hot{
+	color: red;
+}
+.contain .button{
+	margin-top: 55px;
+	text-align: right;
 }

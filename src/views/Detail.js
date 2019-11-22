@@ -14,6 +14,7 @@ constructor(props){
 	this.state={
 		token:localStorage.getItem("token"),
 		user:[],
+		id:'',
 		location:'',
 		img:'',
 		descriptions:'',
@@ -40,7 +41,7 @@ componentDidMount(){
 		document.getElementsByClassName('user')[1].style.display = 'none';
 	}
 	api.getProductMsg(this.props.match.params.id).then((data)=>{
-		this.setState({location:data.data.name,img:data.data.coverImg,descriptions:data.data.descriptions,price:data.data.price,created:data.data.createdAt,totalprice:data.data.price})
+		this.setState({location:data.data.name,img:data.data.coverImg,descriptions:data.data.descriptions,price:data.data.price,created:data.data.createdAt,totalprice:data.data.price,id:data.data._id})
 	})
 }
 onChange=(value)=>{
@@ -195,7 +196,8 @@ return(
 			 数量:  <InputNumber min={1}  defaultValue={1} onChange={this.onChange} />
 			 <span className='totalpricebox'>总价:  <span className='totalprice'>¥{this.state.totalprice}</span></span>
 			</div>
-			<NavLink to="/addorder" className='buy'>立即购买</NavLink>
+			{/*<NavLink to={'/addorder/'+this.state.id} className='buy'>立即购买</NavLink>*/}
+			<NavLink to={{pathname:'/addorder',query:{id:this.state.id,count:this.state.count}}} className='buy'>立即购买</NavLink>
 			<a className='addcart' onClick={this.addCart}>加入购物车</a>
 		</div>
 	</div>

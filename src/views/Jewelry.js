@@ -58,7 +58,6 @@ onClick=()=>{
 	this.props.history.push('/search',value)
 }
 checkout(e,index){
-	console.log(e,index)
 	this.setState({
 	  classify: e,
 	  current:1

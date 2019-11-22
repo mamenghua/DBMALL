@@ -15,8 +15,10 @@ export default class Order extends Component {
 	}
 	componentDidMount(){
 		api.getOrder({per:10,page:this.state.current},localStorage.getItem('token')).then((data)=>{
-			console.log(data)
-			this.setState({orderlist:data.data.orders})
+			let newArr = data.data.orders.map((item,index) =>{
+				return Object.assign(item,{key:index})
+			 })
+			this.setState({orderlist:newArr})
 			this.setState({total:data.data.totalCount})
 		})
 	}
@@ -35,11 +37,13 @@ export default class Order extends Component {
 	}
 	
 	del(data){
-		console.log(data)
 		api.delOrder(data._id,localStorage.getItem('token')).then((data)=>{
 			message.success('删除订单成功！');
 			api.getOrder({per:10,page:1},localStorage.getItem('token')).then((data)=>{
-				this.setState({orderlist:data.data.orders})
+				let newArr = data.data.orders.map((item,index) =>{
+					return Object.assign(item,{key:index})
+				 })
+				this.setState({orderlist:newArr})
 			})
 		})
 	}
@@ -47,22 +51,28 @@ export default class Order extends Component {
 	changePage=(page)=>{
 		this.setState({current:page})
 		api.getOrder({per:10,page:page},localStorage.getItem('token')).then((data)=>{
-			this.setState({orderlist:data.data.orders})
+			let newArr = data.data.orders.map((item,index) =>{
+				return Object.assign(item,{key:index})
+			 })
+			this.setState({orderlist:newArr})
 		})
 	}
 	
 	search=(value)=>{
-		console.log(value)
 		api.searchOrder(value,localStorage.getItem('token')).then((data)=>{
-			console.log(data.data.order)
 			let arr=[]
-			arr.push(data.data.order)
+			let obj = Object.assign(data.data.order,{key:0});
+			arr.push(obj)
 			this.setState({orderlist:arr})
 		})
 	}
 	
     render() {
 		const columns = [
+			{
+				title: '  ',
+				dataIndex: 'key',
+			},
 			{
 				title: '订单id',
 				dataIndex: '_id',

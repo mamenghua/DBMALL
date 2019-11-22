@@ -37,7 +37,6 @@ componentDidMount(){
 	})
 	api.getProducts({per:4,name:"商务活动小礼品"}).then((data)=>{
 		this.setState({youdianlist:data.data.products})
-		console.log(data.data)
 	})
 	api.getProducts({per:8,name:"开业花篮"}).then((data)=>{
 		this.setState({flowerlist:data.data.products})

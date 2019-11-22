@@ -34,7 +34,6 @@ onChange = page => {
 
 componentDidMount(){
 	api.getProducts({per:8,page:this.state.current,name:this.state.classify}).then((data)=>{
-		console.log(data.data)
 		this.setState({booklist:data.data.products})
 		this.setState({total:data.data.totalCount})
 	})
@@ -59,7 +58,6 @@ onClick=()=>{
 	this.props.history.push('/search',value)
 }
 checkout(e,index){
-	console.log(e,index)
 	this.setState({
 	  classify: e,
 	  current:1
