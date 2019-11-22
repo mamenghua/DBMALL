@@ -196,8 +196,15 @@ return(
 			 数量:  <InputNumber min={1}  defaultValue={1} onChange={this.onChange} />
 			 <span className='totalpricebox'>总价:  <span className='totalprice'>¥{this.state.totalprice}</span></span>
 			</div>
-			{/*<NavLink to={'/addorder/'+this.state.id} className='buy'>立即购买</NavLink>*/}
-			<NavLink to={{pathname:'/addorder',query:{id:this.state.id,count:this.state.count}}} className='buy'>立即购买</NavLink>
+			<NavLink to={{pathname:'/addorder',query:{list:[
+				{
+					product : this.state.id,
+					name : this.state.location,
+					coverImg : this.state.img,
+					quantity : this.state.count,
+					price : this.state.totalprice
+				}
+			]}}} className='buy'>立即购买</NavLink>
 			<a className='addcart' onClick={this.addCart}>加入购物车</a>
 		</div>
 	</div>

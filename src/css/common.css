@@ -126,6 +126,21 @@
 	color: white;
 }
 
+.cartbuy{
+	width: 164px;
+	height: 47px;
+	text-align: center;
+	line-height: 47px;
+	color: white;
+	font-size: 20px;
+	display: inline-block;
+	margin-right: 50px;
+	margin-bottom: 50px;
+	background: url(../images/buy.png);
+}
+.cartbuy:hover{
+	color: white;
+}
 
 #root .avatar-uploader > .ant-upload {
 	width: 128px;

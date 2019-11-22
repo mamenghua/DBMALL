@@ -64,6 +64,8 @@ export default class Order extends Component {
 			let obj = Object.assign(data.data.order,{key:0});
 			arr.push(obj)
 			this.setState({orderlist:arr})
+		}).catch((err)=>{
+			message.error('订单有误，请重新输入');
 		})
 	}
 	

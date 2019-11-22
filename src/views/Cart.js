@@ -18,27 +18,13 @@ export default class Cart extends Component {
             totalprice: 0,
             selectedRowKeys: [], // Check here to configure the default column
             loading: false,
+            cartbuylist: []
         }
 
     }
-    start = () => {
-        this.setState({ loading: true });
-        // ajax request after empty completing
-        setTimeout(() => {
-            this.setState({
-                selectedRowKeys: [],
-                loading: false,
-            });
-        }, 1000);
-    };
-    numberChange = (value, oldvalue, id) => {
-        let newValue = parseInt(value);
-        let oldValue = parseInt(oldvalue);
-        let diff = newValue - oldValue;
-        api.addCart({ product: id, quantity: diff }, localStorage.getItem('token')).then((data) => {
-        }).catch((err) => {
-            message.error('购物车更改失败！' + err);
-        })
+
+    // 获取购物车列表数据
+    showCart = () => {
         // 获取用户购物车数据
         api.getCarts(localStorage.getItem('token')).then((data) => {
             let cartlist = data.data;
@@ -63,14 +49,50 @@ export default class Cart extends Component {
                 obj.delid = item._id;
                 list.push(obj);
             });
-            this.setState({ list: list });
             let totalprice = 0;
             this.state.selectedRowKeys.map((item, i) => {
                 totalprice += list[item].totalprice;
             })
             this.setState({ totalprice: totalprice })
-        })
+            this.setState({ list: list });
+            // 购物车是否有数据
 
+            if (this.state.list.length === 0) {
+                document.getElementsByClassName('cartUnEmpty')[0].style.display = 'none';
+                document.getElementsByClassName('cartEmpty')[0].style.display = 'block';
+            } else {
+                document.getElementsByClassName('cartEmpty')[0].style.display = 'none';
+                document.getElementsByClassName('cartUnEmpty')[0].style.display = 'block';
+            }
+        }).catch((err) => {
+            document.getElementsByClassName('cartUnEmpty')[0].style.display = 'none';
+            document.getElementsByClassName('cartEmpty')[0].style.display = 'block';
+        })
+    }
+
+    start = () => {
+        this.setState({ loading: true });
+        // ajax request after empty completing
+        setTimeout(() => {
+            this.setState({
+                selectedRowKeys: [],
+                loading: false,
+            });
+        }, 1000);
+    };
+    numberChange = (value, oldvalue, id) => {
+        let _this = this;
+
+        let newValue = parseInt(value);
+        let oldValue = parseInt(oldvalue);
+        let diff = newValue - oldValue;
+        api.addCart({ product: id, quantity: diff }, localStorage.getItem('token')).then((data) => {
+            // 获取购物车列表数据
+            _this.showCart();
+        }).catch((err) => {
+            message.error('购物车更改失败！' + err);
+        })
+        
     }
     showConfirm = (delid) => {
         let _this = this;
@@ -112,10 +134,20 @@ export default class Cart extends Component {
     }
     onSelectChange = selectedRowKeys => {
         let totalprice = 0;
-        selectedRowKeys.map((item, i) => {
+        let cartbuylist = [];
+
+        selectedRowKeys.map((item) => {
             totalprice += this.state.list[item].totalprice;
+
+            let obj = {};
+            obj.product = this.state.list[item].id;
+            obj.name = this.state.list[item].name;
+            obj.coverImg = this.state.list[item].coverImg;
+            obj.quantity = this.state.list[item].number;
+            obj.price = this.state.list[item].price;
+            cartbuylist.push(obj);
         })
-        this.setState({ totalprice: totalprice, selectedRowKeys })
+        this.setState({ totalprice: totalprice, selectedRowKeys, cartbuylist: cartbuylist })
     };
 
     componentDidMount() {
@@ -128,48 +160,14 @@ export default class Cart extends Component {
             document.getElementsByClassName('user')[1].style.display = 'none';
         }
 
-        // 获取用户购物车数据
-        api.getCarts(localStorage.getItem('token')).then((data) => {
-            let cartlist = data.data;
-            let list = [];
-            cartlist.map((item, i) => {
-                let obj = {};
-                if (item.product === null) {
-                    obj.id = "默认id";
-                    obj.name = "默认name";
-                    obj.price = 0;
-                    obj.totalprice = 0;
-                    obj.coverImg = 'http://api.cat-shop.penkuoer.com//uploads/20190917/1569590406607.jpg';
-                } else {
-                    obj.id = item.product._id;
-                    obj.name = item.product.name;
-                    obj.price = item.product.price;
-                    obj.totalprice = item.product.price * item.quantity;
-                    obj.coverImg = item.product.coverImg;
-                }
-                obj.key = i;
-                obj.number = item.quantity;
-                obj.delid = item._id;
-                list.push(obj);
-            });
-            this.setState({ list: list });
-            // 购物车是否有数据
-            if (this.state.list.length === 0) {
-                document.getElementsByClassName('cartUnEmpty')[0].style.display = 'none';
-                document.getElementsByClassName('cartEmpty')[0].style.display = 'block';
-            } else {
-                document.getElementsByClassName('cartEmpty')[0].style.display = 'none';
-                document.getElementsByClassName('cartUnEmpty')[0].style.display = 'block';
-            }
-        }).catch((err) => {
-            document.getElementsByClassName('cartUnEmpty')[0].style.display = 'none';
-            document.getElementsByClassName('cartEmpty')[0].style.display = 'block';
-        })
+        // 获取购物车列表数据
+        this.showCart();
+
         // 判断用户信息
-        API.usermsg(localStorage.getItem("token")).then((data)=>{
-            this.setState({user:data.data.userName})
-        }).catch((data)=>{
-            this.setState({user:' 您暂未登录 '})
+        API.usermsg(localStorage.getItem("token")).then((data) => {
+            this.setState({ user: data.data.userName })
+        }).catch((data) => {
+            this.setState({ user: ' 您暂未登录 ' })
         })
 
     }
@@ -268,11 +266,11 @@ export default class Cart extends Component {
                         <div className={cart.logo_content}>
                             <img src='../imgs/logo_01.png' alt='' />
                             <img src='../imgs/logo_02.png' alt='' />
-							<NavLink className={mymall.mycart} to="/cart">
-							我的购物车
+                            <NavLink className={mymall.mycart} to="/cart">
+                                我的购物车
 							</NavLink>
-							<NavLink className={mymall.mymall} to="/mymall">
-							我的商城
+                            <NavLink className={mymall.mymall} to="/mymall">
+                                我的商城
 							</NavLink>
                         </div>
                     </div>
@@ -310,6 +308,7 @@ export default class Cart extends Component {
                                 </div>
                                 <Table rowSelection={rowSelection} columns={columns} dataSource={this.state.list} pagination={{ pageSize: 6 }} />
                                 <h2>商品总价（不含运费）<span style={{ color: 'red' }}> {this.state.totalprice} </span> 元</h2>
+                                <NavLink to={{ pathname: '/addorder', query: { list: this.state.cartbuylist } }} style={{ float: 'right' }} className='cartbuy'>立即购买</NavLink>
                             </div>
                         </div>
                     </div>
