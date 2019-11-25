@@ -135,8 +135,8 @@ return(
 		</div>
 		<div className={home.logo}>
 			<div className={home.logo_content}>
-				<img src='../imgs/logo_01.png' alt=''/>
-				<img src='../imgs/logo_02.png' alt=''/>
+				<img src='../image/logo_01.png' alt=''/>
+				<img src='../image/logo_02.png' alt=''/>
 				<div className={home.search}>
 					<input placeholder="搜索商品" className='ipt'/>
 					<a className={home.search_btn} onClick={this.onClick}>搜索</a>
@@ -184,13 +184,13 @@ return(
 		<div className={home.banner}>
 		<Carousel autoplay effect="fade">
 			<div>
-			  <img src='../imgs/banner9.jpg' alt=''/>
+			  <img src='../image/banner9.jpg' alt=''/>
 			</div>
 			<div>
-			  <img src='../imgs/banner2.jpg' alt=''/>
+			  <img src='../image/banner2.jpg' alt=''/>
 			</div>
 			<div>
-			  <img src='../imgs/banner8.jpg' alt=''/>
+			  <img src='../image/banner8.jpg' alt=''/>
 			</div>
 		  </Carousel>
 		</div>
@@ -224,7 +224,7 @@ return(
 			</div>
 			<div className='prod'>
 				<div className='prod_img'>
-				<img src='../imgs/none.png' alt='' className='none'/>
+				<img src='../image/none.png' alt='' className='none'/>
 				</div>
 			</div>
 				

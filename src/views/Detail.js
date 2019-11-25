@@ -128,8 +128,8 @@ return(
 		</div>
 		<div className={home.logo}>
 			<div className={home.logo_content}>
-				<img src='../imgs/logo_01.png' alt=''/>
-				<img src='../imgs/logo_02.png' alt=''/>
+				<img src='../image/logo_01.png' alt=''/>
+				<img src='../image/logo_02.png' alt=''/>
 				<div className={home.search}>
 					<input placeholder="搜索商品" className='ipt'/>
 					<a className={home.search_btn} onClick={this.onClick}>搜索</a>

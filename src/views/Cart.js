@@ -264,8 +264,8 @@ export default class Cart extends Component {
                     </div>
                     <div className={cart.logo}>
                         <div className={cart.logo_content}>
-                            <img src='../imgs/logo_01.png' alt='' />
-                            <img src='../imgs/logo_02.png' alt='' />
+                            <img src='../image/logo_01.png' alt='' />
+                            <img src='../image/logo_02.png' alt='' />
                             <NavLink className={mymall.mycart} to="/cart">
                                 我的购物车
 							</NavLink>
@@ -280,7 +280,7 @@ export default class Cart extends Component {
                     <div className="content">
                         {/* 购物车为空时 */}
                         <div className={"cartEmpty " + cart.cartEmpty}>
-                            <img src='../imgs/cart.png' alt='' className={cart.cartImg} />
+                            <img src='../image/cart.png' alt='' className={cart.cartImg} />
                             <h2>您的购物车还没有商品</h2>
                             <p>
                                 <NavLink to="/home">

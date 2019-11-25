@@ -7,7 +7,7 @@ export default class Footer extends Component {
             <footer>
                 <div className={footer.foot}>
                     <div className={footer.foot_top}>
-                        <img src='../imgs/foot_top.png' alt='' />
+                        <img src='../image/foot_top.png' alt='' />
                     </div>
                     <div className={footer.foot_nav}>
                         <a href='#'>&nbsp;首页&nbsp;</a>/  
@@ -18,22 +18,22 @@ export default class Footer extends Component {
                     </div>
                     <div className={footer.foot_img}>
                         <a href='#'>
-                            <img src='../imgs/public_infomation.png' alt=''/>
+                            <img src='../image/public_infomation.png' alt=''/>
                         </a>
                         <a href='#'>
-                            <img src='../imgs/online_110.png' alt=''/>
+                            <img src='../image/online_110.png' alt=''/>
                         </a>
                         <a href='#'>
-                            <img src='../imgs/alipay_logo.png' alt=''/>
+                            <img src='../image/alipay_logo.png' alt=''/>
                         </a>
                         <a href='#'>
-                            <img src='../imgs/wxpay_logo.png' alt=''/>
+                            <img src='../image/wxpay_logo.png' alt=''/>
                         </a>
                         <a href='#'>
-                            <img src='../imgs/dbmall_118.jpg' alt=''/>
+                            <img src='../image/dbmall_118.jpg' alt=''/>
                         </a>
                         <a href='#'>
-                            <img src='../imgs/gswj.png' alt=''/>
+                            <img src='../image/gswj.png' alt=''/>
                         </a>
                     </div>
                     <p>Copyright&copy;2019 dbmall.com, All Rights Reserved粤ICP备15109472号深公网安备4403300900603</p>

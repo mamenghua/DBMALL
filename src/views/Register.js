@@ -92,11 +92,11 @@ export default class Register extends Component {
 			<div>
 				<div className={"content " + login.login_top}	>
 					<div className={login.loginl_logo}>
-						<img src='../imgs/login_logo.svg' alt='' />
-						<img src='../imgs/logo_02.png' alt='' />
+						<img src='../image/login_logo.svg' alt='' />
+						<img src='../image/logo_02.png' alt='' />
 					</div>
 					<div className={login.loginr_logo}>
-						<img src='../imgs/login_right.png' alt='' />
+						<img src='../image/login_right.png' alt='' />
 					</div>
 				</div>
 				<div className={login.login_container}>

@@ -137,7 +137,7 @@ return(
 		</div>
 		<div className={home.logo}>
 			<div className={home.logo_content}>
-				<img src='../imgs/logo_01.png' alt=''/>
+				<img src='../image/logo_01.png' alt=''/>
 				<span>运动服饰</span>
 				<div className={home.search}>
 					<input placeholder="搜索商品" className='ipt'/>
@@ -186,13 +186,13 @@ return(
 		<div className={home.banner}>
 		<Carousel autoplay effect="fade">
 			<div>
-			  <img src='../imgs/banner7.jpg' alt=''/>
+			  <img src='../image/banner7.jpg' alt=''/>
 			</div>
 			<div>
-			  <img src='../imgs/banner8.jpg' alt=''/>
+			  <img src='../image/banner8.jpg' alt=''/>
 			</div>
 			<div>
-			  <img src='../imgs/banner9.jpg' alt=''/>
+			  <img src='../image/banner9.jpg' alt=''/>
 			</div>
 		  </Carousel>
 		</div>

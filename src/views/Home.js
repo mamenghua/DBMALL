@@ -152,8 +152,8 @@ return(
 		</div>
 		<div className={home.logo}>
 			<div className={home.logo_content}>
-				<img src='../imgs/logo_01.png' alt=''/>
-				<img src='../imgs/logo_02.png' alt=''/>
+				<img src='../image/logo_01.png' alt=''/>
+				<img src='../image/logo_02.png' alt=''/>
 				<div className={home.search}>
 					<input placeholder="搜索商品" className='ipt'/>
 					<a className={home.search_btn} onClick={this.onClick}>搜索</a>
@@ -198,22 +198,22 @@ return(
 		<div className={home.banner}>
 		<Carousel autoplay effect="fade">
 			<div>
-			  <img src='../imgs/banner1.jpg' alt=''/>
+			  <img src='../image/banner1.jpg' alt=''/>
 			</div>
 			<div>
-			  <img src='../imgs/banner2.jpg' alt=''/>
+			  <img src='../image/banner2.jpg' alt=''/>
 			</div>
 			<div>
-			<img src='../imgs/banner3.jpg' alt=''/>
+			<img src='../image/banner3.jpg' alt=''/>
 			</div>
 			<div>
-			<img src='../imgs/banner4.jpg' alt=''/>
+			<img src='../image/banner4.jpg' alt=''/>
 			</div>
 			<div>
-			<img src='../imgs/banner5.jpg' alt=''/>
+			<img src='../image/banner5.jpg' alt=''/>
 			</div>
 			<div>
-			<img src='../imgs/banner6.jpg' alt=''/>
+			<img src='../image/banner6.jpg' alt=''/>
 			</div>
 		  </Carousel>
 		</div>
@@ -221,7 +221,7 @@ return(
 		<div className={home.jingxuan}>
 		<div className={home.jingxuan_content}>
 			<div className={home.timg}>
-			<img src='../imgs/logo_03.png' alt=''/>
+			<img src='../image/logo_03.png' alt=''/>
 			</div>
 			<div className={home.pditem}>
 			{
@@ -243,7 +243,7 @@ return(
 		
 		<div className={home.products}>
 		<div className={home.products_content}>
-				<img src='../imgs/before.png' className={home.before} alt=''/>
+				<img src='../image/before.png' className={home.before} alt=''/>
 				<h2 id="活动礼品">活动礼品</h2>
 				<div>
 					<div className={home.youdianitem}>
@@ -265,7 +265,7 @@ return(
 			
 			
 			
-			<img src='../imgs/before.png' className={home.before} alt=''/>
+			<img src='../image/before.png' className={home.before} alt=''/>
 			<h2 id="开业花篮">开业花篮</h2>
 			<div>
 			<div className={home.floweritem}>
@@ -286,7 +286,7 @@ return(
 			</div>
 			</div>
 			
-			<img src='../imgs/before.png' className={home.before} alt=''/>
+			<img src='../image/before.png' className={home.before} alt=''/>
 			<h2 id="精品服饰">精品服饰</h2>
 			<div>
 			<div className={home.floweritem}>
@@ -306,7 +306,7 @@ return(
 			</div>
 			</div>
 			
-			<img src='../imgs/before.png' className={home.before} alt=''/>
+			<img src='../image/before.png' className={home.before} alt=''/>
 			<h2 id="正品专柜">正品专柜</h2>
 			<div>
 			<div className={home.floweritem}>
@@ -326,7 +326,7 @@ return(
 			</div>
 			</div>
 			
-			<img src='../imgs/before.png' className={home.before} alt=''/>
+			<img src='../image/before.png' className={home.before} alt=''/>
 			<h2 id="运动鞋">运动鞋</h2>
 			<div>
 			<div className={home.floweritem}>
@@ -346,7 +346,7 @@ return(
 			</div>
 			</div>
 			
-			<img src='../imgs/before.png' className={home.before} alt=''/>
+			<img src='../image/before.png' className={home.before} alt=''/>
 			<h2 id="正品手机">正品手机</h2>
 			<div>
 			<div className={home.floweritem}>
@@ -365,7 +365,7 @@ return(
 			</div>
 			</div>
 			
-			<img src='../imgs/before.png' className={home.before} alt=''/>
+			<img src='../image/before.png' className={home.before} alt=''/>
 			<h2 id="休闲小说">休闲小说</h2>
 			<div>
 			<div className={home.floweritem}>

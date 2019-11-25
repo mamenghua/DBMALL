@@ -96,8 +96,8 @@ export default class Mymall extends Component {
                     </div>
                     <div className={cart.logo}>
                         <div className={cart.logo_content}>
-                            <img src='../imgs/logo_01.png' alt='' />
-                            <img src='../imgs/logo_02.png' alt='' />
+                            <img src='../image/logo_01.png' alt='' />
+                            <img src='../image/logo_02.png' alt='' />
 							<NavLink className={mymall.mycart} to="/cart">
 							我的购物车
 							</NavLink>
